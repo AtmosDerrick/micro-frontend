@@ -94,19 +94,19 @@ function Sidebar(page) {
           <Link
             to="/users"
             className={
-              page.page === "students" ? classes.activeMenu : classes.container
+              page.page === "customers" ? classes.activeMenu : classes.container
             }>
             <div className={classes.iconsContainer}>
               <FontAwesomeIcon
                 icon={faUsers}
                 className={
-                  page.page === "students" ? classes.activeIcon : classes.icons
+                  page.page === "customers" ? classes.activeIcon : classes.icons
                 }
               />
             </div>
             <div
               className={
-                page.page === "students"
+                page.page === "loan"
                   ? !openWide
                     ? "text-base text-primary"
                     : " hidden"
@@ -114,27 +114,26 @@ function Sidebar(page) {
                   ? "text-base text-black"
                   : "text-base text-black hidden"
               }>
-              Users
+              Customers
             </div>
           </Link>
 
           <Link
-            to="/teachers"
+            to="/loan"
             className={
-              page.page === "teachers" ? classes.activeMenu : classes.container
+              page.page === "loan" ? classes.activeMenu : classes.container
             }>
             <div className={classes.iconsContainer}>
               <FontAwesomeIcon
                 icon={faFileInvoice}
                 className={
-                  page.page === "teachers" ? classes.activeIcon : classes.icons
+                  page.page === "loan" ? classes.activeIcon : classes.icons
                 }
               />
             </div>
             <div
-              to="/teachers"
               className={
-                page.page === "teachers"
+                page.page === "loan"
                   ? !openWide
                     ? "text-base text-primary"
                     : " hidden"
@@ -142,7 +141,7 @@ function Sidebar(page) {
                   ? "text-base text-black"
                   : "text-base text-black hidden"
               }>
-              Loans
+              Loan Requests
             </div>
           </Link>
 

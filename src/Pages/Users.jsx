@@ -177,8 +177,8 @@ function Users() {
   };
   return (
     <div className="mb-8">
-      <div className="flex justify-between px-4">
-        <Sidebar />
+      <div className="flex justify-between mx-4">
+        <Sidebar page="customers" />
         <div className="w-full">
           <Navbar />
           <div className="w-full  flex justify-between items-center">
@@ -191,7 +191,7 @@ function Users() {
               <div className="text-3xl mt-6 font-semibold">Customers</div>
             </div>
             <div className="w-full flex justify-end">
-              <button className="bg-gradient-to-r from-yellow-400 to-yellow-600 py-2 px-6 rounded-md font-medium">
+              <button className="bg-black py-2 px-6 rounded-md font-medium text-white">
                 New Customers
               </button>
             </div>
