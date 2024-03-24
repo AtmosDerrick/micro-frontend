@@ -153,9 +153,13 @@ function Loan() {
             </div>
             <h1 className="text-2xl font-bold text-black">Loan Requests</h1>
           </div>
-          <div>
-            <button className="py-1 px-4 bg-black text-white rounded-md text-sm font-medium">
-              New Request
+          <div className="flex justify-end gap-8">
+            <button className="py-1  border-black border-2 text-black rounded-md text-sm font-medium px-6">
+              Defaultors
+            </button>
+
+            <button className="py-1  bg-black text-white rounded-md text-sm font-medium px-6">
+              Creditors
             </button>
           </div>
         </div>
@@ -195,7 +199,8 @@ function Loan() {
                       className="px-4 py-1 bg-gray-300 rounded-xl text-xs"
                       onClick={() => {
                         navigate("/loandetails");
-                      }}>
+                      }}
+                    >
                       Review
                     </button>
                   </div>
@@ -235,7 +240,8 @@ function Loan() {
                       className="px-4 py-1 bg-gray-300 rounded-xl text-xs"
                       onClick={() => {
                         navigate("/loandetails");
-                      }}>
+                      }}
+                    >
                       Review
                     </button>
                   </div>

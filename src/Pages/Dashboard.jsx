@@ -54,7 +54,7 @@ function Dashboard() {
   ];
 
   return (
-    <div className="flex justify-between mb-12">
+    <div className="flex justify-between mb-12 mx-4">
       <Sidebar page="dashboard" />
       <div className="w-full pt-8 mx-4">
         <Navbar />
@@ -155,7 +155,8 @@ function Dashboard() {
                       index % 2 === 0
                         ? "bg-white text-gray-500"
                         : "bg-gray-100 text-gray-500"
-                    }>
+                    }
+                  >
                     <td className="px-6 py-2 whitespace-nowrap">
                       {transaction.userId}
                     </td>
@@ -173,7 +174,8 @@ function Dashboard() {
                             : transaction.type === "Loan"
                             ? "text-red-500"
                             : "text-blue-500"
-                        }>
+                        }
+                      >
                         {transaction.type}
                       </div>
                     </td>

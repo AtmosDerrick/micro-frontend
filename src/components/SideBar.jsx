@@ -22,9 +22,6 @@ function Sidebar(page) {
   const [openWide, setOpenWide] = useState(false);
   const [isActive, setIsActive] = useState("");
 
-  useEffect(() => {
-    console.log(page.page, "page");
-  }, [isActive]);
   const classes = {
     container:
       "flex justify-start gap-x-[1px] mb-6 hover:bg-gray-200 py-2 px-2 rounded-md",
@@ -33,7 +30,7 @@ function Sidebar(page) {
     iconsContainer: "w-1/6",
     icons: "text-lg text-black",
     activeIcon: "text-black",
-    text: "text-base text-black",
+    text: "text-sm pl-[3px] text-black",
     activeText: "text-primary",
   };
 
@@ -41,23 +38,26 @@ function Sidebar(page) {
     <div
       className={
         !openWide
-          ? "w-1/4 rounded-md bg-gradient-to-b from-primary to-blue-500 h-screen transition-all duration-500"
-          : "w-1/7 rounded-md bg-gradient-to-b from-primary to-blue-500 h-screen transition-all duration-500 px-8"
-      }>
-      <div className={"w-4/5 mx-auto"}>
+          ? "w-1/4 rounded-md  h-screen transition-all duration-500 "
+          : "w-1/7 rounded-md  h-screen transition-all duration-500 px-8"
+      }
+    >
+      <div className={"w-full px-2"}>
         <div className="pt-10 flex justify-between items-center">
           <h2
             className={
               !openWide
                 ? "text-lg font-bold text-black"
                 : "text-sm font-bold text-black  hidden"
-            }>
+            }
+          >
             Admin
           </h2>
           <button
             onClick={() => {
               setOpenWide(!openWide);
-            }}>
+            }}
+          >
             <FontAwesomeIcon
               icon={openWide ? faChevronCircleRight : faChevronCircleLeft}
               className="text-xl text-black"
@@ -69,7 +69,8 @@ function Sidebar(page) {
             to="/dashboard"
             className={
               page.page === "dashboard" ? classes.activeMenu : classes.container
-            }>
+            }
+          >
             <div className={classes.iconsContainer}>
               <FontAwesomeIcon
                 icon={faGauge}
@@ -82,12 +83,13 @@ function Sidebar(page) {
               className={
                 page.page === "dashboard"
                   ? !openWide
-                    ? "text-base text-primary"
+                    ? "text-sm pl-[3px] text-primary"
                     : " hidden"
                   : !openWide
-                  ? "text-base text-black"
-                  : "text-base text-black hidden"
-              }>
+                  ? "text-sm pl-[3px] text-black"
+                  : "text-sm pl-[3px] text-black hidden"
+              }
+            >
               DashBoard
             </div>
           </Link>
@@ -95,7 +97,8 @@ function Sidebar(page) {
             to="/users"
             className={
               page.page === "customers" ? classes.activeMenu : classes.container
-            }>
+            }
+          >
             <div className={classes.iconsContainer}>
               <FontAwesomeIcon
                 icon={faUsers}
@@ -108,12 +111,13 @@ function Sidebar(page) {
               className={
                 page.page === "loan"
                   ? !openWide
-                    ? "text-base text-primary"
+                    ? "text-sm pl-[3px] text-primary"
                     : " hidden"
                   : !openWide
-                  ? "text-base text-black"
-                  : "text-base text-black hidden"
-              }>
+                  ? "text-sm pl-[3px] text-black"
+                  : "text-sm pl-[3px] text-black hidden"
+              }
+            >
               Customers
             </div>
           </Link>
@@ -122,7 +126,8 @@ function Sidebar(page) {
             to="/loan"
             className={
               page.page === "loan" ? classes.activeMenu : classes.container
-            }>
+            }
+          >
             <div className={classes.iconsContainer}>
               <FontAwesomeIcon
                 icon={faFileInvoice}
@@ -135,12 +140,13 @@ function Sidebar(page) {
               className={
                 page.page === "loan"
                   ? !openWide
-                    ? "text-base text-primary"
+                    ? "text-sm pl-[3px] text-primary"
                     : " hidden"
                   : !openWide
-                  ? "text-base text-black"
-                  : "text-base text-black hidden"
-              }>
+                  ? "text-sm pl-[3px] text-black"
+                  : "text-sm pl-[3px] text-black hidden"
+              }
+            >
               Loan Requests
             </div>
           </Link>
@@ -149,7 +155,8 @@ function Sidebar(page) {
             to="/parent"
             className={
               page.page === "parents" ? classes.activeMenu : classes.container
-            }>
+            }
+          >
             <div className={classes.iconsContainer}>
               <FontAwesomeIcon
                 icon={faWallet}
@@ -163,12 +170,13 @@ function Sidebar(page) {
               className={
                 page.page === "parents"
                   ? !openWide
-                    ? "text-base text-primary"
+                    ? "text-sm pl-[3px] text-primary"
                     : " hidden"
                   : !openWide
-                  ? "text-base text-black"
-                  : "text-base text-black hidden"
-              }>
+                  ? "text-sm pl-[3px] text-black"
+                  : "text-sm pl-[3px] text-black hidden"
+              }
+            >
               Savings
             </div>
           </Link>
@@ -184,9 +192,10 @@ function Sidebar(page) {
               to="/link"
               className={
                 !openWide
-                  ? "text-base text-black"
-                  : "text-base text-black hidden"
-              }>
+                  ? "text-sm pl-[3px] text-black"
+                  : "text-sm pl-[3px] text-black hidden"
+              }
+            >
               Reports
             </div>
           </Link>
@@ -202,9 +211,10 @@ function Sidebar(page) {
               to="/link"
               className={
                 !openWide
-                  ? "text-base text-black"
-                  : "text-base text-black hidden"
-              }>
+                  ? "text-sm pl-[3px] text-black"
+                  : "text-sm pl-[3px] text-black hidden"
+              }
+            >
               Account
             </div>
           </Link>
@@ -217,9 +227,10 @@ function Sidebar(page) {
               to="/link"
               className={
                 !openWide
-                  ? "text-base text-black"
-                  : "text-base text-black hidden"
-              }>
+                  ? "text-sm pl-[3px] text-black"
+                  : "text-sm pl-[3px] text-black hidden"
+              }
+            >
               Setting
             </div>
           </Link>
