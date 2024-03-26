@@ -228,7 +228,7 @@ function Users() {
           <div className="w-full flex justify-end">
             <Link
               to="/creatcustomer"
-              className="bg-black py-2 px-6 rounded-md font-medium text-white"
+              className="bg-black py-2 px-6 rounded-md font-normal text-white text-sm"
             >
               New Customers
             </Link>

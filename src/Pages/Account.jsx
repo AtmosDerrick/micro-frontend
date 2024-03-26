@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 import { useNavigate, Link } from "react-router-dom";
+import AddAdminModel from "../components/AddAdminModel";
 
 function Account() {
   const navigate = useNavigate();
@@ -136,22 +137,18 @@ function Account() {
       <Sidebar page="account" />
       <div className="w-full ">
         <Navbar />
+
         <div className="w-full  flex justify-between items-center">
           <div className="w-full justify-between">
             <div className="flex justify-start gap-4 items-center font-semibold text-gray-500 text-xs">
-              <h4>Admins</h4>
+              <h4>Staffs</h4>
               <FontAwesomeIcon icon={faChevronRight} />
               <h4>List</h4>
             </div>
-            <div className="text-3xl mt-6 font-semibold">Admins</div>
+            <div className="text-3xl mt-6 font-semibold">Staffs</div>
           </div>
-          <div className="w-full flex justify-end">
-            <Link
-              to="/creatcustomer"
-              className="bg-black py-2 px-6 rounded-md font-medium text-white"
-            >
-              New Admin
-            </Link>
+          <div className="w-full flex justify-end  ">
+            <AddAdminModel />
           </div>
         </div>
         <div className="w-full border-2 border-gray-300 rounded-2xl h-4/5 mt-8">
@@ -224,7 +221,7 @@ function Account() {
                         : "hover:cursor-pointer hover:opacity-60 "
                     }
                     onClick={() => {
-                      navigate("/customerDetails/" + user.id);
+                      navigate("");
                     }}
                   >
                     <td className="px-2 py-4 whitespace-nowrap">{user.name}</td>
