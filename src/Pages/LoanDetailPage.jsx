@@ -41,7 +41,7 @@ function LoanDetailPage() {
         <div className="mt-12 flex justify-between ">
           <div className="w-full">
             <h4 className="text-gray-500 pt-2 text-sm font-normal">
-              Pre-approve for Ghc{loanRequest.amountRequested}
+              Requested for Ghc{loanRequest.amountRequested}
             </h4>
             <h2 className="text-lg font-semibold mt-1 text-black">
               Alexandra Daddario

@@ -5,6 +5,7 @@ import {
   faChalkboardUser,
   faChevronCircleLeft,
   faChevronCircleRight,
+  faCircleXmark,
   faClipboardUser,
   faFileInvoice,
   faFileInvoiceDollar,
@@ -152,6 +153,39 @@ function Sidebar(page) {
           </Link>
 
           <Link
+            to="/defaultors"
+            className={
+              page.page === "defaultors"
+                ? classes.activeMenu
+                : classes.container
+            }
+          >
+            <div className={classes.iconsContainer}>
+              <FontAwesomeIcon
+                icon={faCircleXmark}
+                className={
+                  page.page === "defaultors"
+                    ? classes.activeIcon
+                    : classes.icons
+                }
+              />
+            </div>
+            <div
+              className={
+                page.page === "defaultors"
+                  ? !openWide
+                    ? "text-sm pl-[3px] text-primary"
+                    : " hidden"
+                  : !openWide
+                  ? "text-sm pl-[3px] text-black"
+                  : "text-sm pl-[3px] text-black hidden"
+              }
+            >
+              Loan Defaultors
+            </div>
+          </Link>
+
+          <Link
             to="/parent"
             className={
               page.page === "parents" ? classes.activeMenu : classes.container
@@ -200,6 +234,35 @@ function Sidebar(page) {
             </div>
           </Link>
 
+          <Link
+            to="/account"
+            className={
+              page.page === "account" ? classes.activeMenu : classes.container
+            }
+          >
+            <div className={classes.iconsContainer}>
+              <FontAwesomeIcon
+                icon={faUser}
+                className={
+                  page.page === "account" ? classes.activeIcon : classes.icons
+                }
+              />
+            </div>
+            <div
+              className={
+                page.page === "account"
+                  ? !openWide
+                    ? "text-sm pl-[3px] text-primary"
+                    : " hidden"
+                  : !openWide
+                  ? "text-sm pl-[3px] text-black"
+                  : "text-sm pl-[3px] text-black hidden"
+              }
+            >
+              Staff
+            </div>
+          </Link>
+
           <Link to="/dashboard" className={classes.container}>
             <div className={classes.iconsContainer}>
               <FontAwesomeIcon
@@ -215,7 +278,7 @@ function Sidebar(page) {
                   : "text-sm pl-[3px] text-black hidden"
               }
             >
-              Account
+              User Management
             </div>
           </Link>
 
