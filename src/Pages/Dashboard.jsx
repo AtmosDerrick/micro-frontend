@@ -82,9 +82,7 @@ function Dashboard() {
             <h2 className="text-2xl font-bold mt-4">5,000</h2>
           </div>
           <div className="h-[7rem] rounded-lg bg-gray-100 p-4">
-            <h5 className="text-sm font-semibold text-gray-700">
-              Total Saving Plans
-            </h5>
+            <h5 className="text-sm font-semibold text-gray-700">Defaultors</h5>
             <h2 className="text-2xl font-bold mt-4">2,000</h2>
           </div>
         </div>
