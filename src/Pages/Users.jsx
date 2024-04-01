@@ -25,159 +25,17 @@ function Users() {
   const pagesVisited = pageNumber * studentsPerPage;
   const [checkedUsers, setCheckedUsers] = useState([]);
 
-  let users = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      location: "New York, USA",
-      phone: "+1 (555) 123-4567",
-      cardNumber: "1234 5678 9012 3456",
-    },
-    {
-      id: 2,
-      name: "Alice Smith",
-      email: "alice.smith@example.com",
-      location: "London, UK",
-      phone: "+44 1234 567890",
-      cardNumber: "2345 6789 0123 4567",
-    },
-    {
-      id: 3,
-      name: "Bob Johnson",
-      email: "bob.johnson@example.com",
-      location: "Sydney, Australia",
-      phone: "+61 2 3456 7890",
-      cardNumber: "3456 7890 1234 5678",
-    },
-    {
-      id: 4,
-      name: "Jane Brown",
-      email: "jane.brown@example.com",
-      location: "Paris, France",
-      phone: "+33 1 2345 6789",
-      cardNumber: "4567 8901 2345 6789",
-    },
-    {
-      id: 5,
-      name: "David Lee",
-      email: "david.lee@example.com",
-      location: "Tokyo, Japan",
-      phone: "+81 3 4567 8901",
-      cardNumber: "5678 9012 3456 7890",
-    },
-    {
-      id: 6,
-      name: "Sarah Kim",
-      email: "sarah.kim@example.com",
-      location: "Seoul, South Korea",
-      phone: "+82 2 3456 7890",
-      cardNumber: "6789 0123 4567 8901",
-    },
-    {
-      id: 7,
-      name: "Michael Chen",
-      email: "michael.chen@example.com",
-      location: "Beijing, China",
-      phone: "+86 10 1234 5678",
-      cardNumber: "7890 1234 5678 9012",
-    },
-    {
-      id: 8,
-      name: "Maria Garcia",
-      email: "maria.garcia@example.com",
-      location: "Madrid, Spain",
-      phone: "+34 91 234 5678",
-      cardNumber: "8901 2345 6789 0123",
-    },
-    {
-      id: 9,
-      name: "Mohammed Ahmed",
-      email: "mohammed.ahmed@example.com",
-      location: "Cairo, Egypt",
-      phone: "+20 2 3456 7890",
-      cardNumber: "9012 3456 7890 1234",
-    },
-    {
-      id: 10,
-      name: "Anna Ivanova",
-      email: "anna.ivanova@example.com",
-      location: "Moscow, Russia",
-      phone: "+7 495 123-45-67",
-      cardNumber: "0123 4567 8901 2345",
-    },
-    {
-      id: 11,
-      name: "Luisa Fernandez",
-      email: "luisa.fernandez@example.com",
-      location: "Buenos Aires, Argentina",
-      phone: "+54 11 2345-6789",
-      cardNumber: "1234 5678 9012 3456",
-    },
-    {
-      id: 12,
-      name: "Hans Müller",
-      email: "hans.muller@example.com",
-      location: "Berlin, Germany",
-      phone: "+49 30 1234567",
-      cardNumber: "2345 6789 0123 4567",
-    },
-    {
-      id: 13,
-      name: "Yui Takahashi",
-      email: "yui.takahashi@example.com",
-      location: "Tokyo, Japan",
-      phone: "+81 3 4567 8901",
-      cardNumber: "3456 7890 1234 5678",
-    },
-    {
-      id: 14,
-      name: "Giovanni Rossi",
-      email: "giovanni.rossi@example.com",
-      location: "Rome, Italy",
-      phone: "+39 06 1234567",
-      cardNumber: "4567 8901 2345 6789",
-    },
-    {
-      id: 15,
-      name: "Juan Perez",
-      email: "juan.perez@example.com",
-      location: "Mexico City, Mexico",
-      phone: "+52 55 1234 5678",
-      cardNumber: "5678 9012 3456 7890",
-    },
-    {
-      id: 16,
-      name: "Maja Novak",
-      email: "maja.novak@example.com",
-      location: "Ljubljana, Slovenia",
-      phone: "+386 1 234 5678",
-      cardNumber: "6789 0123 4567 8901",
-    },
-    {
-      id: 17,
-      name: "Sophie Dupont",
-      email: "sophie.dupont@example.com",
-      location: "Paris, France",
-      phone: "+33 1 2345 6789",
-      cardNumber: "7890 1234 5678 9012",
-    },
-    {
-      id: 17,
-      name: "Akihiko Tanaka",
-      email: "akihiko.tanaka@example.com",
-      location: "Osaka, Japan",
-      phone: "+81 6 2345 6789",
-      cardNumber: "8901 2345 6789 0123",
-    },
-    {
-      id: 18,
-      name: "Maria Silva",
-      email: "maria.silva@example.com",
-      location: "Lisbon, Portugal",
-      phone: "+351 21 234 5678",
-      cardNumber: "9012 3456 7890 1234",
-    },
+  const users = [
+    { id: 1, name: "John Doe", accountNumber: "1111 2222 3333 4444" },
+    { id: 2, name: "Alice Smith", accountNumber: "2222 3333 4444 5555" },
+    { id: 3, name: "Bob Johnson", accountNumber: "3333 4444 5555 6666" },
+    { id: 4, name: "Jane Brown", accountNumber: "4444 5555 6666 7777" },
+    { id: 5, name: "David Lee", accountNumber: "5555 6666 7777 8888" },
+    { id: 6, name: "Sarah Kim", accountNumber: "6666 7777 8888 9999" },
+    { id: 7, name: "Michael Chen", accountNumber: "7777 8888 9999 0000" },
+    { id: 8, name: "Maria Garcia", accountNumber: "8888 9999 0000 1111" },
+    { id: 9, name: "Mohammed Ahmed", accountNumber: "9999 0000 1111 2222" },
+    { id: 10, name: "Anna Ivanova", accountNumber: "0000 1111 2222 3333" },
   ];
 
   function sortUsersAlphabetically(users, uptodown) {
@@ -279,6 +137,10 @@ function Users() {
                     }}
                   />
                 </th>
+
+                <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  No.
+                </th>
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
                   <button
                     className="flex justify-start gap-2"
@@ -297,16 +159,11 @@ function Users() {
                   </button>
                 </th>
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Email
+                  Account Number
                 </th>
+
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Location
-                </th>
-                <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Phone
-                </th>
-                <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Card Number
+                  View
                 </th>
               </tr>
             </thead>
@@ -342,18 +199,17 @@ function Users() {
                         }}
                       />
                     </td>
+                    <td className="px-2 py-4 whitespace-nowrap">{index + 1}</td>
+
                     <td className="px-2 py-4 whitespace-nowrap">{user.name}</td>
                     <td className="px-2 py-4 whitespace-nowrap">
-                      {user.email}
+                      {user.accountNumber}
                     </td>
+
                     <td className="px-2 py-4 whitespace-nowrap">
-                      {user.location}
-                    </td>
-                    <td className="px-2 py-4 whitespace-nowrap">
-                      {user.phone}
-                    </td>
-                    <td className="px-2 py-4 whitespace-nowrap">
-                      {user.cardNumber}
+                      <button className="py-[2px] text-xs px-4 bg-black text-white rounded-lg">
+                        View
+                      </button>
                     </td>
                   </tr>
                 ))}

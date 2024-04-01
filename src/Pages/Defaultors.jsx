@@ -164,9 +164,17 @@ function Defaultors() {
           <div className="w-full  flex justify-between items-center">
             <div className="w-full justify-between">
               <div className="flex justify-start gap-4 items-center font-semibold text-gray-500 text-xs">
-                <h4>Defaultors </h4>
+                <Link >
+                  <h4>Loan </h4>
+                </Link>
                 <FontAwesomeIcon icon={faChevronRight} />
-                <h4>List</h4>
+                <Link>
+                  <h4>Defaultors </h4>
+                </Link>
+                <FontAwesomeIcon icon={faChevronRight} />
+                <Link>
+                  <h4>List</h4>
+                </Link>
               </div>
               <div className="text-3xl mt-6 font-semibold">Loan Defaultors</div>
             </div>

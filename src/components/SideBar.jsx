@@ -2,16 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCashRegister,
   faChalkboardUser,
   faChevronCircleLeft,
   faChevronCircleRight,
+  faChevronDown,
+  faChevronRight,
   faCircleXmark,
   faClipboardUser,
+  faDonate,
   faFileInvoice,
   faFileInvoiceDollar,
   faGauge,
   faGear,
+  faHourglass,
+  faHourglassHalf,
   faLeftLong,
+  faMarker,
+  faMars,
+  faMarsStroke,
   faSheetPlastic,
   faUser,
   faUserGraduate,
@@ -22,12 +31,13 @@ import {
 function Sidebar(page) {
   const [openWide, setOpenWide] = useState(false);
   const [isActive, setIsActive] = useState("");
+  const [loanMenuActive, setLoanMenuActive] = useState(true);
 
   const classes = {
     container:
-      "flex justify-start gap-x-[1px] mb-6 hover:bg-gray-200 py-2 px-2 rounded-md",
+      "flex justify-start gap-x-[1px] mb-4 hover:bg-gray-200 py-2 px-2 rounded-md",
     activeMenu:
-      "flex justify-start gap-x-[1px] mb-6  bg-gray-100 py-2 px-4 rounded-lg",
+      "flex justify-start gap-x-[1px] mb-4  bg-gray-100 py-2 px-4 rounded-lg",
     iconsContainer: "w-1/6",
     icons: "text-lg text-black",
     activeIcon: "text-black",
@@ -57,6 +67,7 @@ function Sidebar(page) {
           <button
             onClick={() => {
               setOpenWide(!openWide);
+              setLoanMenuActive(false);
             }}
           >
             <FontAwesomeIcon
@@ -65,7 +76,7 @@ function Sidebar(page) {
             />
           </button>
         </div>
-        <div className="mt-12">
+        <div className="mt-8">
           <Link
             to="/dashboard"
             className={
@@ -123,67 +134,146 @@ function Sidebar(page) {
             </div>
           </Link>
 
-          <Link
-            to="/loan"
-            className={
-              page.page === "loan" ? classes.activeMenu : classes.container
-            }
-          >
-            <div className={classes.iconsContainer}>
-              <FontAwesomeIcon
-                icon={faFileInvoice}
-                className={
-                  page.page === "loan" ? classes.activeIcon : classes.icons
-                }
-              />
-            </div>
+          <div className="w-full mb-4">
             <div
+              to="/loan"
               className={
                 page.page === "loan"
-                  ? !openWide
-                    ? "text-sm pl-[3px] text-primary"
-                    : " hidden"
-                  : !openWide
-                  ? "text-sm pl-[3px] text-black"
-                  : "text-sm pl-[3px] text-black hidden"
+                  ? classes.activeMenu + "w-full"
+                  : classes.container
               }
+              onClick={() => {
+                setLoanMenuActive((prev) => !prev);
+              }}
             >
-              Loan Requests
+              <div className={classes.iconsContainer}>
+                <FontAwesomeIcon
+                  icon={faFileInvoice}
+                  className={
+                    page.page === "loan" ? classes.activeIcon : classes.icons
+                  }
+                />
+              </div>
+              <div className="flex w-full justify-between items-center">
+                <div
+                  className={
+                    page.page === "loan"
+                      ? !openWide
+                        ? "text-sm pl-[3px] text-primary"
+                        : " hidden"
+                      : !openWide
+                      ? "text-sm pl-[3px] text-black"
+                      : "text-sm pl-[3px] text-black hidden"
+                  }
+                >
+                  Loan Requests
+                </div>
+                <div className={classes.iconsContainer}>
+                  {loanMenuActive ? (
+                    <FontAwesomeIcon
+                      icon={faChevronDown}
+                      className={page.page === "loan" ? "text-sm" : "text-sm"}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faChevronRight}
+                      className={
+                        page.page === "loan"
+                          ? classes.activeIcon
+                          : classes.icons
+                      }
+                    />
+                  )}
+                </div>
+              </div>
             </div>
-          </Link>
 
-          <Link
-            to="/defaultors"
-            className={
-              page.page === "defaultors"
-                ? classes.activeMenu
-                : classes.container
-            }
-          >
-            <div className={classes.iconsContainer}>
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                className={
-                  page.page === "defaultors"
-                    ? classes.activeIcon
-                    : classes.icons
-                }
-              />
-            </div>
             <div
               className={
-                page.page === "defaultors"
-                  ? !openWide
-                    ? "text-sm pl-[3px] text-primary"
-                    : " hidden"
-                  : !openWide
-                  ? "text-sm pl-[3px] text-black"
-                  : "text-sm pl-[3px] text-black hidden"
+                loanMenuActive
+                  ? "ml-12 -mt-4 text-black h-32 overflow-hidden max-h-32 transition-all duration-1000 "
+                  : "ml-12 -mt-4 text-black h-0 overflow-hidden max-h-0 transition-all duration-1000"
               }
             >
-              Loan Defaultors
+              <div className="mt-2">
+                <Link
+                  to="/pendingloan"
+                  className="tracking-normal flex justify-start  "
+                >
+                  {
+                    <div className={classes.iconsContainer}>
+                      <FontAwesomeIcon
+                        icon={faHourglassHalf}
+                        className={
+                          page.page === "defaultors"
+                            ? "text-sm text-gray-700"
+                            : "text-sm text-gray-700"
+                        }
+                      />
+                    </div>
+                  }
+                  <div className="text-sm text-gray-700">Pending Loans</div>
+                </Link>
+              </div>
+
+              <div className="mt-2">
+                <Link
+                  to="/activeloan"
+                  className="tracking-wider flex justify-start"
+                >
+                  <div className={classes.iconsContainer}>
+                    <FontAwesomeIcon
+                      icon={faWallet}
+                      className={
+                        page.page === "defaultors"
+                          ? "text-sm text-gray-700"
+                          : "text-sm text-gray-700"
+                      }
+                    />
+                  </div>
+                  <div className="text-sm text-gray-700">Active Loans</div>
+                </Link>
+              </div>
+
+              <div className="mt-2">
+                <Link
+                  to="/defaultors"
+                  className="tracking-wider flex justify-start"
+                >
+                  <div className={classes.iconsContainer}>
+                    <FontAwesomeIcon
+                      icon={faDonate}
+                      className={
+                        page.page === "defaultors"
+                          ? "text-sm text-gray-700"
+                          : "text-sm text-gray-700"
+                      }
+                    />
+                  </div>
+                  <div className="text-sm text-gray-700">Completed Loans</div>
+                </Link>
+              </div>
+
+              <div className="mt-2 mb-8">
+                <Link
+                  to="/defaultors"
+                  className="tracking-wider flex justify-start"
+                >
+                  <div className={classes.iconsContainer}>
+                    <FontAwesomeIcon
+                      icon={faCircleXmark}
+                      className={
+                        page.page === "defaultors"
+                          ? "text-sm text-gray-700"
+                          : "text-sm text-gray-700"
+                      }
+                    />
+                  </div>
+                  <div className="text-sm text-gray-700">Defaultors</div>
+                </Link>
+              </div>
             </div>
-          </Link>
+          </div>
 
           <Link
             to="/parent"

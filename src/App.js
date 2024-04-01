@@ -10,6 +10,8 @@ import CreateCustomer from "./Pages/CreateCustomer";
 import UserDetails from "./Pages/UserDetails";
 import Defaultors from "./Pages/Defaultors";
 import Account from "./Pages/Account";
+import PendingLoans from "./Pages/PendingLoans";
+import ActiveLoan from "./Pages/ActiveLoan";
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +27,9 @@ function App() {
           <Route path="/loandetails" element={<LoanDetailPage />} />
 
           <Route path="/defaultors" element={<Defaultors />} />
+          <Route path="/pendingloan" element={<PendingLoans />} />
+          <Route path="/activeLoan" element={<ActiveLoan />} />
+
           <Route path="/account" element={<Account />} />
         </Route>
       </Routes>
