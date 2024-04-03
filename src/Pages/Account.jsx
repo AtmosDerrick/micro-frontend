@@ -207,6 +207,9 @@ function Account() {
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Role
                 </th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -235,6 +238,9 @@ function Account() {
                       {user.phone}
                     </td>
                     <td className="px-2 py-4 whitespace-nowrap">{user.role}</td>
+                    <td className="px-2 py-4 whitespace-nowrap">
+                      <button>View</button>
+                    </td>
                   </tr>
                 ))}
             </tbody>

@@ -18,11 +18,10 @@ function AddAdminModel() {
   };
 
   const [formData, setFormData] = useState({
-    name: "",
+    fname: "",
+    lname: "",
     email: "",
-    location: "",
-    role: "admin",
-    phoneNumber: "",
+    cardNo: "",
   });
 
   const handleChange = (e) => {
@@ -60,16 +59,34 @@ function AddAdminModel() {
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
-                  htmlFor="name"
+                  htmlFor="fname"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Name
+                  First Name
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
+                  id="firstname"
+                  name="fname"
                   value={formData.name}
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="lname"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="last name"
+                  name="lname"
+                  value={formData.password}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   required
@@ -94,58 +111,20 @@ function AddAdminModel() {
               </div>
               <div className="mb-4">
                 <label
-                  htmlFor="location"
+                  htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Location
+                  Ghana Card Number
                 </label>
                 <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  value={formData.location}
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.cardNo}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   required
                 />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="phoneNumber"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="role"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Role
-                </label>
-                <select
-                  id="role"
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  required
-                >
-                  <option value="admin">Admin</option>
-                  <option value="secretary">Secretary</option>
-                  <option value="branchManager">Branch Manager</option>
-                  <option value="marketer">Marketer</option>
-                </select>
               </div>
 
               <button
