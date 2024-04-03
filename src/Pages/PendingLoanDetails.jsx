@@ -4,40 +4,7 @@ import Navbar from "../components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-function LoanDetailPage() {
-  const transactions = [
-    {
-      transactionId: 1,
-      date: "2022-04-01",
-      type: "credit",
-      amount: 3000,
-    },
-    {
-      transactionId: 2,
-      date: "2022-04-02",
-      type: "payed",
-      amount: -500,
-    },
-    {
-      transactionId: 3,
-      date: "2022-04-03",
-      type: "payed",
-      amount: -1000,
-    },
-    {
-      transactionId: 4,
-      date: "2022-04-04",
-      type: "payed",
-      amount: -200,
-    },
-    {
-      transactionId: 5,
-      date: "2022-04-05",
-      type: "payed",
-      amount: -1200,
-    },
-    // Add more transactions as needed
-  ];
+function PendingLoanDetails() {
   return (
     <div className="flex justify-between gap-4">
       <Sidebar page="customers" />
@@ -122,7 +89,7 @@ function LoanDetailPage() {
                 <h4 className="text-sm font-normal text-gray-600">
                   Amount Approved
                 </h4>
-                <h2 className="text-sm font-medium text-black">Ghc 1500</h2>
+                <h2 className="text-sm font-medium text-black">Null</h2>
               </div>
 
               <div className="mt-6">
@@ -138,16 +105,14 @@ function LoanDetailPage() {
                 <h4 className="text-sm font-normal text-gray-600">
                   Date Approved
                 </h4>
-                <h2 className="text-sm font-medium text-black">
-                  17th May, 2024
-                </h2>
+                <h2 className="text-sm font-medium text-black">Null</h2>
               </div>
             </div>
 
             <div className="w-full">
               <div>
                 <h4 className="text-sm font-normal text-gray-600">Status</h4>
-                <h2 className="text-sm font-medium text-black">Active Loan</h2>
+                <h2 className="text-sm font-medium text-black">Pending Loan</h2>
               </div>
 
               <div className="mt-6">
@@ -161,7 +126,7 @@ function LoanDetailPage() {
                 <h4 className="text-sm font-normal text-gray-600">
                   Amount Owed
                 </h4>
-                <h2 className="text-sm font-medium text-black">Ghc 1500</h2>
+                <h2 className="text-sm font-medium text-black">Null</h2>
               </div>
 
               <div className="mt-6">
@@ -172,53 +137,24 @@ function LoanDetailPage() {
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="mt-12 ">
-            <div className="">
-              <h3 className="text-lg font-semibold text-back text-left">
-                Latest Transaction
-              </h3>
-            </div>
+        <div className="w-full flex justify-start gap-4 mt-32">
+          <div>
+            <button className="px-6 py-2 font-semibold text-white rounded-md text-sm my-2 bg-blue-600">
+              Approved
+            </button>
+          </div>
 
-            <table className="min-w-full bg-white border-gray-200">
-              <thead>
-                <tr className="">
-                  <th className="pr-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Transaction ID
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Type
-                  </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {transactions.map((transaction, index) => (
-                  <tr
-                    key={transaction.transactionId}
-                    className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
-                  >
-                    <td className="pr-4 py-2 whitespace-nowrap">
-                      {transaction.transactionId}
-                    </td>
-                    <td className="px-4 py-2 whitespace-nowrap">
-                      {transaction.date}
-                    </td>
-                    <td className="px-4 py-2 whitespace-nowrap">
-                      {transaction.type}
-                    </td>
-                    <td className="px-4 py-2 whitespace-nowrap">
-                      {transaction.amount}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div>
+            <button className="px-6 py-2 font-semibold text-white rounded-md text-sm my-2 bg-black">
+              Suggest Amount
+            </button>
+          </div>
+          <div>
+            <button className="px-6 py-2 font-semibold text-black rounded-md text-sm my-2 border-black border-2">
+              Decline
+            </button>
           </div>
         </div>
       </div>
@@ -226,4 +162,4 @@ function LoanDetailPage() {
   );
 }
 
-export default LoanDetailPage;
+export default PendingLoanDetails;

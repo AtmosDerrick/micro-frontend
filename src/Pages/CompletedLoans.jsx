@@ -14,7 +14,7 @@ import {
 import ReactPaginate from "react-paginate";
 import { useNavigate, Link } from "react-router-dom";
 
-function Defaultors() {
+function CompletedLoans() {
   const navigate = useNavigate();
 
   const [pageNumber, setPageNumber] = useState(0);
@@ -163,11 +163,11 @@ function Defaultors() {
             <div className="flex justify-start gap-4 items-center font-semibold text-gray-500 text-xs">
               <h4>Loan </h4>
               <FontAwesomeIcon icon={faChevronRight} />
-              <h4>Defaultors </h4>
+              <h4>Completed Loans </h4>
               <FontAwesomeIcon icon={faChevronRight} />
               <h4>List</h4>
             </div>
-            <div className="text-3xl mt-6 font-semibold">Defaultors</div>
+            <div className="text-3xl mt-6 font-semibold">Completed Loans</div>
           </div>
         </div>
         <div className="w-full border-2 border-gray-300 rounded-2xl h-4/5 mt-8">
@@ -242,7 +242,7 @@ function Defaultors() {
                   className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider flex justify-start gap-2 hover:cursor-pointer"
                   onClick={sortAmount}
                 >
-                  Amt Owed(Ghc)
+                  Amount (Ghc)
                   <button className="flex justify-start gap-2">
                     <div>
                       {uptodownAmount ? (
@@ -363,4 +363,4 @@ function Defaultors() {
   );
 }
 
-export default Defaultors;
+export default CompletedLoans;

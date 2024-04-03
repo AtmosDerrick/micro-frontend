@@ -12,6 +12,8 @@ import Defaultors from "./Pages/Defaultors";
 import Account from "./Pages/Account";
 import PendingLoans from "./Pages/PendingLoans";
 import ActiveLoan from "./Pages/ActiveLoan";
+import CompletedLoans from "./Pages/CompletedLoans";
+import PendingLoanDetails from "./Pages/PendingLoanDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -24,11 +26,16 @@ function App() {
           <Route path="/customerDetails/:id" element={<UserDetails />} />
 
           <Route path="/loan" element={<Loan />} />
-          <Route path="/loandetails" element={<LoanDetailPage />} />
+          <Route path="/loan/loandetails/:id" element={<LoanDetailPage />} />
+          <Route
+            path="/loan/pendingloandetails/:id"
+            element={<PendingLoanDetails />}
+          />
 
-          <Route path="/defaultors" element={<Defaultors />} />
-          <Route path="/pendingloan" element={<PendingLoans />} />
-          <Route path="/activeLoan" element={<ActiveLoan />} />
+          <Route path="/loan/defaultors" element={<Defaultors />} />
+          <Route path="/loan/pendingloan" element={<PendingLoans />} />
+          <Route path="/loan/activeLoan" element={<ActiveLoan />} />
+          <Route path="/loan/completedloans" element={<CompletedLoans />} />
 
           <Route path="/account" element={<Account />} />
         </Route>

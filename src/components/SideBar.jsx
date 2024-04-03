@@ -197,7 +197,7 @@ function Sidebar(page) {
             >
               <div className="mt-2">
                 <Link
-                  to="/pendingloan"
+                  to="/loan/pendingloan"
                   className="tracking-normal flex justify-start  "
                 >
                   {
@@ -218,7 +218,7 @@ function Sidebar(page) {
 
               <div className="mt-2">
                 <Link
-                  to="/activeloan"
+                  to="/loan/activeloan"
                   className="tracking-wider flex justify-start"
                 >
                   <div className={classes.iconsContainer}>
@@ -237,7 +237,7 @@ function Sidebar(page) {
 
               <div className="mt-2">
                 <Link
-                  to="/defaultors"
+                  to="/loan/completedloans"
                   className="tracking-wider flex justify-start"
                 >
                   <div className={classes.iconsContainer}>
@@ -256,7 +256,7 @@ function Sidebar(page) {
 
               <div className="mt-2 mb-8">
                 <Link
-                  to="/defaultors"
+                  to="/loan/defaultors"
                   className="tracking-wider flex justify-start"
                 >
                   <div className={classes.iconsContainer}>
