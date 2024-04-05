@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import axios from "axios";
 
 function AddAdminModel() {
   const style = {
@@ -27,10 +28,21 @@ function AddAdminModel() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    console.log(formData.cardNo);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    axios
+      .post("https://alphamega.gitplus.app/api/register_admin/", {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        card: formData.cardNo,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
     console.log(formData); // You can replace this with your form submission logic
   };
 
@@ -86,7 +98,7 @@ function AddAdminModel() {
                   type="text"
                   id="last name"
                   name="lname"
-                  value={formData.password}
+                  value={formData.lastName}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   required
@@ -111,15 +123,15 @@ function AddAdminModel() {
               </div>
               <div className="mb-4">
                 <label
-                  htmlFor="email"
+                  htmlFor="card"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Ghana Card Number
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
+                  type="text"
+                  id="card"
+                  name="cardNo"
                   value={formData.cardNo}
                   onChange={handleChange}
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

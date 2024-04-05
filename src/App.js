@@ -14,7 +14,9 @@ import PendingLoans from "./Pages/PendingLoans";
 import ActiveLoan from "./Pages/ActiveLoan";
 import CompletedLoans from "./Pages/CompletedLoans";
 import PendingLoanDetails from "./Pages/PendingLoanDetails";
+import axios from "axios";
 function App() {
+  axios.defaults.baseURL = "https://alphamega.gitplus.app/api/login";
   return (
     <BrowserRouter>
       <Routes>
