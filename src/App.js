@@ -16,7 +16,11 @@ import CompletedLoans from "./Pages/CompletedLoans";
 import PendingLoanDetails from "./Pages/PendingLoanDetails";
 import axios from "axios";
 function App() {
-  axios.defaults.baseURL = "https://alphamega.gitplus.app/api/login";
+  axios.defaults.baseURL = "https://alphamega.gitplus.app/api/";
+  axios.defaults.headers.post["Content-Type"] =
+    "application/x-www-form-urlencoded";
+  axios.defaults.withCredentials = true;
+  axios.defaults.withXSRFToken = true;
   return (
     <BrowserRouter>
       <Routes>

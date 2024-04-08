@@ -17,8 +17,10 @@ function Login() {
 
     // Add your sign-in logic here
     if (email !== "" && password !== "") {
+      // navigate("/dashboard");
+
       axios
-        .post("https://alphamega.gitplus.app/api/login/", {
+        .post("/login/", {
           email,
           password,
         })
