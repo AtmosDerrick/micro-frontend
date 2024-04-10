@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import loading from "../assets/images/loading1.gif";
+import { UserAuth } from "../contextApi/UserContext";
 
 function Login() {
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { user, setUser, token, setToken } = UserAuth();
 
   const navigate = useNavigate();
 
@@ -19,26 +22,44 @@ function Login() {
     if (email !== "" && password !== "") {
       // navigate("/dashboard");
 
-      axios
-        .post("/login/", {
+      axios({
+        url: "/login",
+        data: {
           email,
           password,
-        })
+        },
+        method: "POST",
+        // mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+          // "Access-Control-Allow-Origin": process.env.REACT_APP_API_URL,
+          // "Access-Control-Request-Headers": "Content-Type, Authorization",
+        },
+      })
         .then((res) => {
-          // console.log(res.data);
+          setUser(res.data.data);
           navigate("/dashboard");
           setIsLoading(false);
         })
         .catch((err) => {
           setIsLoading(false);
-          setError("Password or Email is not correct");
+          console.log(err, "ll");
+
+          setError("Invalid Password or Email");
+
+          setTimeout(() => {
+            setError();
+          }, 2000);
         });
       // Redirect or perform other actions upon successful sign-in
     } else {
-      setError();
+      setIsLoading(false);
+
+      setError("Please, Input Your Credentials");
+
       setTimeout(() => {
-        setError("Invalid email or password");
-      }, 500);
+        setError();
+      }, 2000);
     }
   };
 

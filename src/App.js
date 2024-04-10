@@ -15,37 +15,44 @@ import ActiveLoan from "./Pages/ActiveLoan";
 import CompletedLoans from "./Pages/CompletedLoans";
 import PendingLoanDetails from "./Pages/PendingLoanDetails";
 import axios from "axios";
+import { UserContext } from "./contextApi/UserContext";
+import { UserContextProvider } from "./contextApi/UserContext";
+
 function App() {
   axios.defaults.baseURL = "https://alphamega.gitplus.app/api/";
+  axios.defaults.headers.common["Content-Type"] = "application/json";
 
-  axios.defaults.withCredentials = true;
-  axios.defaults.withXSRFToken = true;
+  // axios.defaults.withCredentials = true;
+  // axios.defaults.withXSRFToken = true;
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
+    <UserContextProvider>
+      <BrowserRouter>
+        <Routes>
           <Route index element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/creatcustomer" element={<CreateCustomer />} />
-          <Route path="/customerDetails/:id" element={<UserDetails />} />
 
-          <Route path="/loan" element={<Loan />} />
-          <Route path="/loan/loandetails/:id" element={<LoanDetailPage />} />
-          <Route
-            path="/loan/pendingloandetails/:id"
-            element={<PendingLoanDetails />}
-          />
+          <Route path="/" element={<Layout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/creatcustomer" element={<CreateCustomer />} />
+            <Route path="/customerDetails/:id" element={<UserDetails />} />
 
-          <Route path="/loan/defaultors" element={<Defaultors />} />
-          <Route path="/loan/pendingloan" element={<PendingLoans />} />
-          <Route path="/loan/activeLoan" element={<ActiveLoan />} />
-          <Route path="/loan/completedloans" element={<CompletedLoans />} />
+            <Route path="/loan" element={<Loan />} />
+            <Route path="/loan/loandetails/:id" element={<LoanDetailPage />} />
+            <Route
+              path="/loan/pendingloandetails/:id"
+              element={<PendingLoanDetails />}
+            />
 
-          <Route path="/account" element={<Account />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            <Route path="/loan/defaultors" element={<Defaultors />} />
+            <Route path="/loan/pendingloan" element={<PendingLoans />} />
+            <Route path="/loan/activeLoan" element={<ActiveLoan />} />
+            <Route path="/loan/completedloans" element={<CompletedLoans />} />
+
+            <Route path="/account" element={<Account />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </UserContextProvider>
   );
 }
 
