@@ -18,10 +18,7 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Add your sign-in logic here
     if (email !== "" && password !== "") {
-      // navigate("/dashboard");
-
       axios({
         url: "/login",
         data: {
@@ -29,33 +26,29 @@ function Login() {
           password,
         },
         method: "POST",
-        // mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
-          // "Access-Control-Allow-Origin": process.env.REACT_APP_API_URL,
-          // "Access-Control-Request-Headers": "Content-Type, Authorization",
         },
       })
         .then((res) => {
           setUser(res.data.data);
+          setToken(res.data.token);
+          localStorage.setItem("token", res.data.token); // Store token in local storage
+
           navigate("/dashboard");
           setIsLoading(false);
         })
         .catch((err) => {
           setIsLoading(false);
-          console.log(err, "ll");
-
           setError("Invalid Password or Email");
 
           setTimeout(() => {
             setError();
           }, 2000);
         });
-      // Redirect or perform other actions upon successful sign-in
     } else {
       setIsLoading(false);
-
-      setError("Please, Input Your Credentials");
+      setError("Please input your credentials");
 
       setTimeout(() => {
         setError();

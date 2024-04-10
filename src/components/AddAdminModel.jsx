@@ -4,8 +4,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
+import { UserAuth } from "../contextApi/UserContext";
 
 function AddAdminModel() {
+  const { user, setUser, token, setToken } = UserAuth();
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -33,15 +36,54 @@ function AddAdminModel() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("https://alphamega.gitplus.app/api/register_admin/", {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
+    // axios({
+    //   url: "login/",
+    //   data: {
+    //     fname: formData.fname,
+    //     lname: formData.lname,
+    //     email: formData.email,
+    //     gh_card_no: formData.cardNo,
+    //   },
+    //   method: "POST",
+    //   mode: "no-cors",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     // Authorization: token,
+    //   },
+    //   // params: {
+    //   //   access_token: token,
+    //   // },
+    // })
+    //   .then((res) => {
+    //     setUser(res.data.data);
+    //     console.log(user);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+    console.log(token, "desss");
+
+    axios({
+      url: "/register_admin",
+      data: {
+        fname: formData.fname,
+        lname: formData.lname,
         email: formData.email,
-        card: formData.cardNo,
-      })
+        gh_card_no: formData.cardNo,
+      },
+      mode: "no-cors",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
         console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
     console.log(formData); // You can replace this with your form submission logic
   };
