@@ -7,7 +7,7 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 function PendingLoanDetails() {
   return (
     <div className="flex justify-between gap-4">
-      <Sidebar page="customers" />
+      <Sidebar page="loan" />
 
       <div className="w-full px-4">
         <Navbar />

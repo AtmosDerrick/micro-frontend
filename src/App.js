@@ -17,6 +17,8 @@ import PendingLoanDetails from "./Pages/PendingLoanDetails";
 import axios from "axios";
 import { UserContext } from "./contextApi/UserContext";
 import { UserContextProvider } from "./contextApi/UserContext";
+import StaffDetails from "./Pages/StaffDetails";
+import StaffProfile from "./Pages/StaffProfile";
 
 function App() {
   axios.defaults.baseURL = "https://alphamega.gitplus.app/api/";
@@ -49,6 +51,8 @@ function App() {
             <Route path="/loan/completedloans" element={<CompletedLoans />} />
 
             <Route path="/account" element={<Account />} />
+            <Route path="account/staffDetails/:id" element={<StaffDetails />} />
+            <Route path="/staffprofile/:id" element={<StaffProfile />} />
           </Route>
         </Routes>
       </BrowserRouter>

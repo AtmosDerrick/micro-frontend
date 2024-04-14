@@ -155,7 +155,7 @@ function PendingLoans() {
 
   return (
     <div className="flex justify-between gap-4 mx-4">
-      <Sidebar page="customers" />
+      <Sidebar page="loan" />
       <div className="w-full ">
         <Navbar />
         <div className="w-full  flex justify-between items-center">

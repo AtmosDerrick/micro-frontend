@@ -23,6 +23,7 @@ import {
   faMarsStroke,
   faSheetPlastic,
   faUser,
+  faUserEdit,
   faUserGraduate,
   faUsers,
   faWallet,
@@ -169,20 +170,24 @@ function Sidebar(page) {
                   Loan Requests
                 </div>
                 <div className={classes.iconsContainer}>
-                  {loanMenuActive ? (
-                    <FontAwesomeIcon
-                      icon={faChevronDown}
-                      className={page.page === "loan" ? "text-sm" : "text-sm"}
-                    />
+                  {!openWide ? (
+                    loanMenuActive ? (
+                      <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className={page.page === "loan" ? "text-sm" : "text-sm"}
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faChevronRight}
+                        className={
+                          page.page === "loan"
+                            ? classes.activeIcon
+                            : classes.icons
+                        }
+                      />
+                    )
                   ) : (
-                    <FontAwesomeIcon
-                      icon={faChevronRight}
-                      className={
-                        page.page === "loan"
-                          ? classes.activeIcon
-                          : classes.icons
-                      }
-                    />
+                    ""
                   )}
                 </div>
               </div>
@@ -301,7 +306,7 @@ function Sidebar(page) {
                   : "text-sm pl-[3px] text-black hidden"
               }
             >
-              Savings
+              Loan Settings
             </div>
           </Link>
 

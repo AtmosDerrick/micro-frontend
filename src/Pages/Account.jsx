@@ -201,12 +201,11 @@ function Account() {
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Location
                 </th>
-                <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Phone
-                </th>
+
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Role
                 </th>
+
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Action
                 </th>
@@ -223,9 +222,6 @@ function Account() {
                         ? "bg-gray-50 hover:cursor-pointer hover:opacity-60 "
                         : "hover:cursor-pointer hover:opacity-60 "
                     }
-                    onClick={() => {
-                      navigate("");
-                    }}
                   >
                     <td className="px-2 py-4 whitespace-nowrap">{user.name}</td>
                     <td className="px-2 py-4 whitespace-nowrap">
@@ -234,12 +230,17 @@ function Account() {
                     <td className="px-2 py-4 whitespace-nowrap">
                       {user.location}
                     </td>
-                    <td className="px-2 py-4 whitespace-nowrap">
-                      {user.phone}
-                    </td>
+
                     <td className="px-2 py-4 whitespace-nowrap">{user.role}</td>
                     <td className="px-2 py-4 whitespace-nowrap">
-                      <button>View</button>
+                      <button
+                        className="text-orange-500"
+                        onClick={() => {
+                          navigate("staffdetails/" + user.id);
+                        }}
+                      >
+                        View
+                      </button>
                     </td>
                   </tr>
                 ))}
