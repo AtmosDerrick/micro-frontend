@@ -281,7 +281,7 @@ function Sidebar(page) {
           </div>
 
           <Link
-            to="/parent"
+            to="/loansettings"
             className={
               page.page === "parents" ? classes.activeMenu : classes.container
             }
