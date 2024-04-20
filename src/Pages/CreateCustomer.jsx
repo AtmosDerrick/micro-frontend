@@ -8,8 +8,12 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Webcam from "react-webcam";
+import { UserAuth } from "../contextApi/UserContext";
+import axios from "axios";
 
 function CreateCustomer() {
+  const { user, setUser, token, setToken } = UserAuth();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -49,6 +53,28 @@ function CreateCustomer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    axios({
+      url: "/register_user",
+      data: {
+        fname: formData.fname,
+        lname: formData.lname,
+        email: formData.email,
+        gh_card_no: formData.cardNo,
+        phone: formData.phoneNo,
+      },
+      mode: "no-cors",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     console.log(formData); // You can replace this with your form submission logic
   };
 
@@ -78,6 +104,7 @@ function CreateCustomer() {
   // };
 
   return (
+    
     <div className="flex justify-between ">
       <Sidebar page="customers" />
       <div className="w-full px-4">

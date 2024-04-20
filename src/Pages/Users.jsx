@@ -13,17 +13,23 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { UserAuth } from "../contextApi/UserContext";
+import loading from "../assets/images/loading1.gif";
+import Skeleton from "../components/Skeleton";
 
 function Users() {
   const navigate = useNavigate();
+  const { user, setUser, token, setToken } = UserAuth();
 
   const [pageNumber, setPageNumber] = useState(0);
-  const [userses, setUseses] = useState([]);
+  const [userses, setUseses] = useState();
   const [uptodown, setUpToDown] = useState(false);
 
   const [studentsPerPage, setStudentsPerPage] = useState(10);
   const pagesVisited = pageNumber * studentsPerPage;
   const [checkedUsers, setCheckedUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const users = [
     { id: 1, name: "John Doe", accountNumber: "1111 2222 3333 4444" },
@@ -47,6 +53,22 @@ function Users() {
     return sortedUsers;
   }
 
+  useEffect(() => {
+    setIsLoading(true);
+    axios({
+      url: "/customers",
+
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      setUseses(res.data.data);
+      setIsLoading(false);
+    });
+  }, []);
+
   // Inside the Users component
   useEffect(() => {
     const sortedUsers = sortUsersAlphabetically(users, uptodown);
@@ -69,7 +91,16 @@ function Users() {
     setCheckedUsers([]);
   };
 
-  return (
+  return isLoading ? (
+    <div className="w-full h-full   ">
+      <Skeleton />
+      {
+        //   <div className="w-full flex justify-center items-center h-full">
+        //   <img src={loading} alt="loading" className="w-64" />
+        // </div>
+      }
+    </div>
+  ) : (
     <div className="flex justify-between gap-4 mx-4">
       <Sidebar page="customers" />
       <div className="w-full ">
@@ -148,7 +179,7 @@ function Users() {
                       setUpToDown(!uptodown);
                     }}
                   >
-                    <div>Name</div>
+                    <div>First Name</div>
                     <div>
                       {uptodown ? (
                         <FontAwesomeIcon icon={faChevronUp} />
@@ -157,6 +188,9 @@ function Users() {
                       )}
                     </div>
                   </button>
+                </th>
+                <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Last Name
                 </th>
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Account Number
@@ -201,9 +235,14 @@ function Users() {
                     </td>
                     <td className="px-2 py-4 whitespace-nowrap">{index + 1}</td>
 
-                    <td className="px-2 py-4 whitespace-nowrap">{user.name}</td>
                     <td className="px-2 py-4 whitespace-nowrap">
-                      {user.accountNumber}
+                      {user.fname}
+                    </td>
+                    <td className="px-2 py-4 whitespace-nowrap">
+                      {user.lname}
+                    </td>
+                    <td className="px-2 py-4 whitespace-nowrap">
+                      {user.transid}
                     </td>
 
                     <td className="px-2 py-4 whitespace-nowrap">

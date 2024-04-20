@@ -13,9 +13,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 import { useNavigate, Link } from "react-router-dom";
+import { UserAuth } from "../contextApi/UserContext";
+import axios from "axios";
 
 function PendingLoans() {
   const navigate = useNavigate();
+  const { user, setUser, token, setToken } = UserAuth();
 
   const [pageNumber, setPageNumber] = useState(0);
   const [userses, setUseses] = useState([]);
@@ -99,9 +102,23 @@ function PendingLoans() {
     },
   ];
 
+  // useEffect(() => {
+  //   axios({
+  //     url: "/customers",
+
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   }).then((res) => {
+  //     setUseses(res.data.data);
+  //   });
+  // }, []);
+
   useEffect(() => {
     setUseses(users);
-  }, []);
+  });
 
   const sortName = () => {
     setUpToDown(!uptodown);

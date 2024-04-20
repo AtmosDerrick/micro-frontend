@@ -280,36 +280,6 @@ function Sidebar(page) {
             </div>
           </div>
 
-          <Link
-            to="/loansettings"
-            className={
-              page.page === "parents" ? classes.activeMenu : classes.container
-            }
-          >
-            <div className={classes.iconsContainer}>
-              <FontAwesomeIcon
-                icon={faWallet}
-                className={
-                  page.page === "parents" ? classes.activeIcon : classes.icons
-                }
-              />
-            </div>
-            <div
-              to="/parent"
-              className={
-                page.page === "parents"
-                  ? !openWide
-                    ? "text-sm pl-[3px] text-primary"
-                    : " hidden"
-                  : !openWide
-                  ? "text-sm pl-[3px] text-black"
-                  : "text-sm pl-[3px] text-black hidden"
-              }
-            >
-              Loan Settings
-            </div>
-          </Link>
-
           <Link to="/dashboard" className={classes.container}>
             <div className={classes.iconsContainer}>
               <FontAwesomeIcon
@@ -374,6 +344,36 @@ function Sidebar(page) {
               }
             >
               User Management
+            </div>
+          </Link>
+
+          <Link
+            to="/loansettings"
+            className={
+              page.page === "parents" ? classes.activeMenu : classes.container
+            }
+          >
+            <div className={classes.iconsContainer}>
+              <FontAwesomeIcon
+                icon={faWallet}
+                className={
+                  page.page === "parents" ? classes.activeIcon : classes.icons
+                }
+              />
+            </div>
+            <div
+              to="/parent"
+              className={
+                page.page === "parents"
+                  ? !openWide
+                    ? "text-sm pl-[3px] text-primary"
+                    : " hidden"
+                  : !openWide
+                  ? "text-sm pl-[3px] text-black"
+                  : "text-sm pl-[3px] text-black hidden"
+              }
+            >
+              Loan Settings
             </div>
           </Link>
 

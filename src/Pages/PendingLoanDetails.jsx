@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 function PendingLoanDetails() {
+  
   return (
     <div className="flex justify-between gap-4">
       <Sidebar page="loan" />
