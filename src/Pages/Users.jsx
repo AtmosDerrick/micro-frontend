@@ -23,7 +23,7 @@ function Users() {
   const { user, setUser, token, setToken } = UserAuth();
 
   const [pageNumber, setPageNumber] = useState(0);
-  const [userses, setUseses] = useState();
+  const [userses, setUseses] = useState([]);
   const [uptodown, setUpToDown] = useState(false);
 
   const [studentsPerPage, setStudentsPerPage] = useState(10);
@@ -31,59 +31,50 @@ function Users() {
   const [checkedUsers, setCheckedUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const users = [
-    { id: 1, name: "John Doe", accountNumber: "1111 2222 3333 4444" },
-    { id: 2, name: "Alice Smith", accountNumber: "2222 3333 4444 5555" },
-    { id: 3, name: "Bob Johnson", accountNumber: "3333 4444 5555 6666" },
-    { id: 4, name: "Jane Brown", accountNumber: "4444 5555 6666 7777" },
-    { id: 5, name: "David Lee", accountNumber: "5555 6666 7777 8888" },
-    { id: 6, name: "Sarah Kim", accountNumber: "6666 7777 8888 9999" },
-    { id: 7, name: "Michael Chen", accountNumber: "7777 8888 9999 0000" },
-    { id: 8, name: "Maria Garcia", accountNumber: "8888 9999 0000 1111" },
-    { id: 9, name: "Mohammed Ahmed", accountNumber: "9999 0000 1111 2222" },
-    { id: 10, name: "Anna Ivanova", accountNumber: "0000 1111 2222 3333" },
-  ];
+  useEffect(() => {
+    setIsLoading(true);
+    axios({
+      url: "/customers",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        setUseses(res.data.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+  }, []);
 
   function sortUsersAlphabetically(users, uptodown) {
     const sortedUsers = [...users].sort((a, b) => {
-      if (a.name < b.name) return uptodown ? 1 : -1;
-      if (a.name > b.name) return uptodown ? -1 : 1;
+      if (a.fname < b.fname) return uptodown ? 1 : -1;
+      if (a.fname > b.fname) return uptodown ? -1 : 1;
       return 0;
     });
     return sortedUsers;
   }
 
   useEffect(() => {
-    setIsLoading(true);
-    axios({
-      url: "/customers",
+    if (userses.length > 0) {
+      const sortedUsers = sortUsersAlphabetically(userses, uptodown);
+      setUseses(sortedUsers);
+    }
+  }, [uptodown]);
 
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      setUseses(res.data.data);
-      setIsLoading(false);
-    });
-  }, []);
-
-  // Inside the Users component
-  useEffect(() => {
-    const sortedUsers = sortUsersAlphabetically(users, uptodown);
-    setUseses(sortedUsers);
-    console.log(checkedUsers, "imagee");
-  }, [uptodown, checkedUsers]);
-
-  const pageCount = Math.ceil(users.length / studentsPerPage);
+  const pageCount = Math.ceil(userses.length / studentsPerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
 
   const checkAll = () => {
-    const names = userses.map((user) => user.name);
+    const names = userses.map((user) => user.accountNumber);
     setCheckedUsers(names);
   };
 
@@ -92,23 +83,18 @@ function Users() {
   };
 
   return isLoading ? (
-    <div className="w-full h-full   ">
+    <div className="w-full h-full">
       <Skeleton />
-      {
-        //   <div className="w-full flex justify-center items-center h-full">
-        //   <img src={loading} alt="loading" className="w-64" />
-        // </div>
-      }
     </div>
   ) : (
     <div className="flex justify-between gap-4 mx-4">
       <Sidebar page="customers" />
-      <div className="w-full ">
+      <div className="w-full">
         <Navbar />
-        <div className="w-full  flex justify-between items-center">
+        <div className="w-full flex justify-between items-center">
           <div className="w-full justify-between">
             <div className="flex justify-start gap-4 items-center font-semibold text-gray-500 text-xs">
-              <h4>Customers </h4>
+              <h4>Customers</h4>
               <FontAwesomeIcon icon={faChevronRight} />
               <h4>List</h4>
             </div>
@@ -124,15 +110,13 @@ function Users() {
           </div>
         </div>
         <div className="w-full border-2 border-gray-300 rounded-2xl h-4/5 mt-8">
-          <div className="flex justify-between items-center  border-b-gray-300 border-b-[2px] py-4 ">
+          <div className="flex justify-between items-center border-b-gray-300 border-b-[2px] py-4">
             <div className="flex justify-start ml-4">
               <button className="px-4">
-                {
-                  <FontAwesomeIcon
-                    icon={faEllipsisVertical}
-                    className="text-lg font-bold"
-                  />
-                }
+                <FontAwesomeIcon
+                  icon={faEllipsisVertical}
+                  className="text-lg font-bold"
+                />
               </button>
             </div>
             <div className="flex justify-start items-center">
@@ -147,7 +131,7 @@ function Users() {
                   className="border-none ml-2 text-base font-normal focus:outline-none w-5/6"
                 />
               </div>
-              <div className="  ">
+              <div>
                 <div className="mr-4 flex justify-start gap-2 items-center">
                   <div>
                     <FontAwesomeIcon icon={faFilter} className="text-xl" />
@@ -168,11 +152,10 @@ function Users() {
                     }}
                   />
                 </th>
-
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   No.
                 </th>
-                <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
+                <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   <button
                     className="flex justify-start gap-2"
                     onClick={() => {
@@ -195,7 +178,6 @@ function Users() {
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Account Number
                 </th>
-
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   View
                 </th>
@@ -209,14 +191,11 @@ function Users() {
                     key={index}
                     className={
                       index % 2 === 0
-                        ? "bg-gray-50 hover:cursor-pointer hover:opacity-60 "
-                        : "hover:cursor-pointer hover:opacity-60 "
+                        ? "bg-gray-50 hover:cursor-pointer hover:opacity-60"
+                        : "hover:cursor-pointer hover:opacity-60"
                     }
-                    onClick={() => {
-                      navigate("/customerDetails/" + user.id);
-                    }}
                   >
-                    <td className="px-4 py-4 whitespace-nowrap ">
+                    <td className="px-4 py-4 whitespace-nowrap">
                       <input
                         type="checkbox"
                         id={`checkbox-${index}`}
@@ -234,7 +213,6 @@ function Users() {
                       />
                     </td>
                     <td className="px-2 py-4 whitespace-nowrap">{index + 1}</td>
-
                     <td className="px-2 py-4 whitespace-nowrap">
                       {user.fname}
                     </td>
@@ -244,9 +222,13 @@ function Users() {
                     <td className="px-2 py-4 whitespace-nowrap">
                       {user.transid}
                     </td>
-
                     <td className="px-2 py-4 whitespace-nowrap">
-                      <button className="py-[2px] text-xs px-4 bg-black text-white rounded-lg">
+                      <button
+                        className="py-[2px] text-xs px-4 bg-black text-white rounded-lg"
+                        onClick={() => {
+                          navigate("/customerDetails/" + user.transid);
+                        }}
+                      >
                         View
                       </button>
                     </td>
@@ -254,7 +236,6 @@ function Users() {
                 ))}
             </tbody>
           </table>
-
           <div className="mx-4 mt-12 flex justify-between pb-4">
             <div className="w-full flex justify-start gap-2 items-center">
               No. Per Page:

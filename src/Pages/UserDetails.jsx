@@ -3,9 +3,44 @@ import Sidebar from "../components/SideBar";
 import Navbar from "../components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { UserAuth } from "../contextApi/UserContext";
+import { useParams } from "react-router-dom";
+import Skeleton from "../components/Skeleton";
 
 function UserDetails() {
-  return (
+  const handle = useParams();
+  const [customerDetails, setCustomerDetails] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const { user, setUser, token, setToken } = UserAuth();
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios({
+      url: "/get_customer/" + handle.id,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        setCustomerDetails(res.data.data);
+        console.log(customerDetails, "working");
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+  }, []);
+
+  return isLoading ? (
+    <div className="w-full h-full">
+      <Skeleton />
+    </div>
+  ) : (
     <div className="flex justify-between gap-4">
       <Sidebar page="customers" />
 
@@ -54,7 +89,9 @@ function UserDetails() {
                 <h4 className="text-sm font-normal text-gray-600">
                   First Name
                 </h4>
-                <h2 className="text-sm font-medium text-black">Emmanuella</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {customerDetails.fname}
+                </h2>
               </div>
 
               <div className="mt-6">
@@ -69,13 +106,15 @@ function UserDetails() {
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">Contact</h4>
                 <h2 className="text-sm font-medium text-black">
-                  +233 56329870
+                  {customerDetails.phone}
                 </h2>
               </div>
 
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">Card No.</h4>
-                <h2 className="text-sm font-medium text-black">GH - 1213223</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {customerDetails.gh_card_no}
+                </h2>
               </div>
 
               <div className="mt-6">
@@ -83,7 +122,7 @@ function UserDetails() {
                   Date Created
                 </h4>
                 <h2 className="text-sm font-medium text-black">
-                  17th March, 2023
+                  {customerDetails.created_at}
                 </h2>
               </div>
             </div>
@@ -91,7 +130,9 @@ function UserDetails() {
             <div className="w-full">
               <div>
                 <h4 className="text-sm font-normal text-gray-600">Last Name</h4>
-                <h2 className="text-sm font-medium text-black">Osei</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {customerDetails.lname}
+                </h2>
               </div>
 
               <div className="mt-6">
@@ -104,7 +145,7 @@ function UserDetails() {
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">Email</h4>
                 <h2 className="text-sm font-medium text-black">
-                  credit@gmail.com
+                  {customerDetails.email}
                 </h2>
               </div>
 

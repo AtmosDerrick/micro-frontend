@@ -28,6 +28,7 @@ function PendingLoans() {
   const [studentsPerPage, setStudentsPerPage] = useState(10);
   const pagesVisited = pageNumber * studentsPerPage;
   const [checkedUsers, setCheckedUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const users = [
     {
@@ -102,23 +103,25 @@ function PendingLoans() {
     },
   ];
 
-  // useEffect(() => {
-  //   axios({
-  //     url: "/customers",
-
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   }).then((res) => {
-  //     setUseses(res.data.data);
-  //   });
-  // }, []);
-
   useEffect(() => {
-    setUseses(users);
-  });
+    setIsLoading(true);
+    axios({
+      url: "/get_pendingRequest",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        setUseses(res.data.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+  }, []);
 
   const sortName = () => {
     setUpToDown(!uptodown);
@@ -241,7 +244,7 @@ function PendingLoans() {
                     className="flex justify-start gap-2"
                     onClick={sortName}
                   >
-                    <div>Name</div>
+                    <div>Full Name</div>
                     <div>
                       {uptodown ? (
                         <FontAwesomeIcon icon={faChevronUp} />
@@ -292,7 +295,7 @@ function PendingLoans() {
                         : "hover:cursor-pointer hover:opacity-60 "
                     }
                     onClick={() => {
-                      navigate("/loan/pendingloandetails/" + index);
+                      navigate("/loan/pendingloandetails/" + user.id);
                     }}
                   >
                     <td className="px-4 py-4 whitespace-nowrap ">
@@ -315,12 +318,10 @@ function PendingLoans() {
                     <td className="px-2 py-4 whitespace-nowrap">{index + 1}</td>
 
                     <td className="px-2 py-4 whitespace-nowrap">{user.name}</td>
-                    <td className="px-2 py-4 whitespace-nowrap">
-                      {user.accountNumber}
-                    </td>
+                    <td className="px-2 py-4 whitespace-nowrap">{user.id}</td>
 
                     <td className="px-2 py-4 whitespace-nowrap">
-                      {user.amountrequested}
+                      {user.loan_amount}
                     </td>
 
                     <td className="px-2 py-4 whitespace-nowrap">
