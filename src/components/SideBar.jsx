@@ -203,7 +203,7 @@ function Sidebar(page) {
               <div className="mt-2">
                 <Link
                   to="/loan/pendingloan"
-                  className="tracking-normal flex justify-start  "
+                  className="tracking-normal flex justify-start  items-center  "
                 >
                   {
                     <div className={classes.iconsContainer}>
@@ -218,6 +218,9 @@ function Sidebar(page) {
                     </div>
                   }
                   <div className="text-sm text-gray-700">Pending Loans</div>
+                  <div className="w-4 ml-4 h-4 rounded-full flex justify-center items-center bg-black text-white text-xs font-medium">
+                    4
+                  </div>
                 </Link>
               </div>
 

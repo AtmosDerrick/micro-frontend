@@ -1,13 +1,84 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/SideBar";
 import Navbar from "../components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { UserAuth } from "../contextApi/UserContext";
+import { useParams } from "react-router-dom";
+import Modal from "react-modal";
+import TransactionHistory from "../components/TransactionHistory";
+import UserDetailModal from "../components/UserDetailModal";
 
 function PendingLoanDetails() {
-  
+  const [isLoading, setIsLoading] = useState(true);
+  const { user, setUser, token, setToken } = UserAuth();
+  const handle = useParams();
+
+  const [userDetails, setUserDetails] = useState([]);
+  const [buttonPress, setButtonPress] = useState("");
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      width: "60%",
+      height: "80%",
+    },
+    overlay: {
+      backgroundColor: "rgba(128, 128, 128, 0.75)",
+    },
+  };
+
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+  useEffect(() => {
+    setIsLoading(true);
+    axios({
+      url: "/get_pendinguser/" + handle.id,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        setUserDetails(res.data.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+  }, []);
   return (
     <div className="flex justify-between gap-4">
+      <div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          {buttonPress === "transaction" ? (
+            <TransactionHistory closeModal={closeModal} />
+          ) : (
+            <UserDetailModal closeModal={closeModal} />
+          )}
+        </Modal>
+      </div>
       <Sidebar page="loan" />
 
       <div className="w-full px-4">
@@ -38,12 +109,26 @@ function PendingLoanDetails() {
 
             <div className="w-full flex justify-end pt-4 gap-4">
               <div>
-                <button className="border-black border-2 text-black  py-2 px-4 rounded-md hover:opacity-60 text-sm font-semibold">
+                <button
+                  onClick={() => {
+                    setButtonPress("userinfo");
+                    console.log(buttonPress, "bbttl");
+                    openModal();
+                  }}
+                  className="border-black border-2 text-black  py-2 px-4 rounded-md hover:opacity-60 text-sm font-semibold"
+                >
                   User Info
                 </button>
               </div>
               <div>
-                <button className="bg-black text-white  py-2 px-4 rounded-md hover:opacity-60 text-sm font-semibold">
+                <button
+                  onClick={() => {
+                    setButtonPress("transaction");
+                    console.log(buttonPress, "bbtt");
+                    openModal();
+                  }}
+                  className="bg-black text-white  py-2 px-4 rounded-md hover:opacity-60 text-sm font-semibold"
+                >
                   Transaction History
                 </button>
               </div>

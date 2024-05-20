@@ -8,12 +8,41 @@ import axios from "axios";
 import { UserAuth } from "../contextApi/UserContext";
 import { useParams } from "react-router-dom";
 import Skeleton from "../components/Skeleton";
+import Modal from "react-modal";
+import TransactionHistory from "../components/TransactionHistory";
 
 function UserDetails() {
   const handle = useParams();
   const [customerDetails, setCustomerDetails] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const { user, setUser, token, setToken } = UserAuth();
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      width: "60%",
+      height: "80%",
+    },
+    overlay: {
+      backgroundColor: "rgba(128, 128, 128, 0.75)",
+    },
+  };
+
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -42,6 +71,16 @@ function UserDetails() {
     </div>
   ) : (
     <div className="flex justify-between gap-4">
+      <div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <TransactionHistory closeModal={closeModal} />
+        </Modal>
+      </div>
       <Sidebar page="customers" />
 
       <div className="w-full px-4">
@@ -76,7 +115,10 @@ function UserDetails() {
                 </button>
               </div>
               <div>
-                <button className="bg-black text-white  py-2 px-4 rounded-md hover:opacity-60 text-sm font-semibold">
+                <button
+                  onClick={openModal}
+                  className="bg-black text-white  py-2 px-4 rounded-md hover:opacity-60 text-sm font-semibold"
+                >
                   Transaction Record
                 </button>
               </div>

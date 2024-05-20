@@ -239,21 +239,7 @@ function PendingLoans() {
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   No.
                 </th>
-                <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider  ">
-                  <button
-                    className="flex justify-start gap-2"
-                    onClick={sortName}
-                  >
-                    <div>Full Name</div>
-                    <div>
-                      {uptodown ? (
-                        <FontAwesomeIcon icon={faChevronUp} />
-                      ) : (
-                        <FontAwesomeIcon icon={faChevronDown} />
-                      )}
-                    </div>
-                  </button>
-                </th>
+
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Account Number
                 </th>
@@ -294,9 +280,9 @@ function PendingLoans() {
                         ? "bg-gray-50 hover:cursor-pointer hover:opacity-60 "
                         : "hover:cursor-pointer hover:opacity-60 "
                     }
-                    onClick={() => {
-                      navigate("/loan/pendingloandetails/" + user.id);
-                    }}
+                    // onClick={() => {
+                    //   navigate("/loan/pendingloandetails/" + user.id);
+                    // }}
                   >
                     <td className="px-4 py-4 whitespace-nowrap ">
                       <input
@@ -317,7 +303,6 @@ function PendingLoans() {
                     </td>
                     <td className="px-2 py-4 whitespace-nowrap">{index + 1}</td>
 
-                    <td className="px-2 py-4 whitespace-nowrap">{user.name}</td>
                     <td className="px-2 py-4 whitespace-nowrap">{user.id}</td>
 
                     <td className="px-2 py-4 whitespace-nowrap">
@@ -332,7 +317,7 @@ function PendingLoans() {
                       <button
                         className="py-[2px] text-xs px-4 bg-black text-white rounded-lg"
                         onClick={() => {
-                          navigate("");
+                          navigate("/loan/pendingloandetails/" + user.id);
                         }}
                       >
                         View
