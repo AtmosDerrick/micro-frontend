@@ -15,6 +15,7 @@ import ReactPaginate from "react-paginate";
 import { useNavigate, Link } from "react-router-dom";
 import { UserAuth } from "../contextApi/UserContext";
 import axios from "axios";
+import Skeleton from "../components/Skeleton";
 
 function PendingLoans() {
   const navigate = useNavigate();
@@ -173,7 +174,11 @@ function PendingLoans() {
     setCheckedUsers([]);
   };
 
-  return (
+  return isLoading ? (
+    <div className="w-full h-full">
+      <Skeleton />
+    </div>
+  ) : (
     <div className="flex justify-between gap-4 mx-4">
       <Sidebar page="loan" />
       <div className="w-full ">
@@ -241,7 +246,7 @@ function PendingLoans() {
                 </th>
 
                 <th className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Account Number
+                  Loan ID
                 </th>
 
                 <th
@@ -303,7 +308,9 @@ function PendingLoans() {
                     </td>
                     <td className="px-2 py-4 whitespace-nowrap">{index + 1}</td>
 
-                    <td className="px-2 py-4 whitespace-nowrap">{user.id}</td>
+                    <td className="px-2 py-4 whitespace-nowrap">
+                      {user.loan_id}
+                    </td>
 
                     <td className="px-2 py-4 whitespace-nowrap">
                       {user.loan_amount}
@@ -317,7 +324,7 @@ function PendingLoans() {
                       <button
                         className="py-[2px] text-xs px-4 bg-black text-white rounded-lg"
                         onClick={() => {
-                          navigate("/loan/pendingloandetails/" + user.id);
+                          navigate("/loan/pendingloandetails/" + user.loan_id);
                         }}
                       >
                         View

@@ -10,13 +10,18 @@ import Modal from "react-modal";
 import TransactionHistory from "../components/TransactionHistory";
 import UserDetailModal from "../components/UserDetailModal";
 
-function PendingLoanDetails() {
+const PendingLoanDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const { user, setUser, token, setToken } = UserAuth();
-  const handle = useParams();
+  const { user, token } = UserAuth();
+  const { id } = useParams();
 
-  const [userDetails, setUserDetails] = useState([]);
-  const [buttonPress, setButtonPress] = useState("");
+  const [userDetails, setUserDetails] = useState({});
+  const [buttonPress, setButtonPress] = useState(null);
+  const [approveResponse, setApproveResponse] = useState();
+  const [checkSuccess, setCheckSuccess] = useState(false);
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpenSuccess, setIsOpenSuccess] = useState(false);
 
   const customStyles = {
     content: {
@@ -26,34 +31,23 @@ function PendingLoanDetails() {
       bottom: "auto",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
-      width: "60%",
-      height: "80%",
+      width: buttonPress ? "60%" : "30%",
+      height: buttonPress ? "80%" : "30%",
     },
     overlay: {
       backgroundColor: "rgba(128, 128, 128, 0.75)",
     },
   };
 
-  let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
   useEffect(() => {
     setIsLoading(true);
-    axios({
-      url: "/get_pendinguser/" + handle.id,
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    axios
+      .get(`/get_pendingUser/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setUserDetails(res.data.data);
         setIsLoading(false);
@@ -62,104 +56,109 @@ function PendingLoanDetails() {
         console.error(err);
         setIsLoading(false);
       });
-  }, []);
+  }, [id, token]);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+  const openSuccessModal = () => setIsOpenSuccess(true);
+  const closeSuccessModal = () => setIsOpenSuccess(false);
+
+  const handleApproveLoan = () => {
+    axios
+      .put(
+        `/approve_loan/${id}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setApproveResponse(res.data.data);
+        openSuccessModal();
+      })
+      .catch((err) => {
+        console.error(err);
+        closeModal();
+      });
+  };
+
+  const openPrompt = () => {
+    setButtonPress(null);
+    openModal();
+  };
+
   return (
     <div className="flex justify-between gap-4">
-      <div>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          {buttonPress === "transaction" ? (
-            <TransactionHistory closeModal={closeModal} />
-          ) : (
-            <UserDetailModal closeModal={closeModal} />
-          )}
-        </Modal>
-      </div>
       <Sidebar page="loan" />
 
       <div className="w-full px-4">
         <Navbar />
 
-        <div>
-          <div className="flex justify-start gap-4 items-center font-semibold text-gray-500 text-xs">
-            <h4>Loan </h4>
-            <FontAwesomeIcon icon={faChevronRight} />
-            <h4>List</h4>
-            <FontAwesomeIcon icon={faChevronRight} />
-            <h4>Loan Details</h4>
-          </div>
+        <div className="flex justify-start gap-4 items-center font-semibold text-gray-500 text-xs">
+          <h4>Loan</h4>
+          <FontAwesomeIcon icon={faChevronRight} />
+          <h4>List</h4>
+          <FontAwesomeIcon icon={faChevronRight} />
+          <h4>Loan Details</h4>
         </div>
 
         <div>
           <div className="flex justify-between">
-            {
-              //   <div className="w-full">
-              //   <div className="w-32 h-32 mt-8 ">
-              //     <img
-              //       src="https://i.pinimg.com/564x/17/f9/5a/17f95a7cd3091e1d5507588f462f2b38.jpg"
-              //       className="w-32 h-32 rounded-full"
-              //     />
-              //   </div>
-              // </div>
-            }
-
             <div className="w-full flex justify-end pt-4 gap-4">
-              <div>
-                <button
-                  onClick={() => {
-                    setButtonPress("userinfo");
-                    console.log(buttonPress, "bbttl");
-                    openModal();
-                  }}
-                  className="border-black border-2 text-black  py-2 px-4 rounded-md hover:opacity-60 text-sm font-semibold"
-                >
-                  User Info
-                </button>
-              </div>
-              <div>
-                <button
-                  onClick={() => {
-                    setButtonPress("transaction");
-                    console.log(buttonPress, "bbtt");
-                    openModal();
-                  }}
-                  className="bg-black text-white  py-2 px-4 rounded-md hover:opacity-60 text-sm font-semibold"
-                >
-                  Transaction History
-                </button>
-              </div>
+              <button
+                onClick={() => {
+                  setButtonPress("userinfo");
+                  openModal();
+                }}
+                className="border-black border-2 text-black py-2 px-4 rounded-md hover:opacity-60 text-sm font-semibold"
+              >
+                User Info
+              </button>
+              <button
+                onClick={() => {
+                  setButtonPress("transaction");
+
+                  openModal();
+                }}
+                className="bg-black text-white py-2 px-4 rounded-md hover:opacity-60 text-sm font-semibold"
+              >
+                Transaction History
+              </button>
             </div>
           </div>
 
           <div className="mt-8 grid grid-cols-3">
             <div className="w-full">
-              <div className="">
+              <div>
                 <h4 className="text-sm font-normal text-gray-600">
                   Transaction ID
                 </h4>
-                <h2 className="text-sm font-medium text-black">12124</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {userDetails.transid || "N/A"}
+                </h2>
               </div>
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">
                   Account Number
                 </h4>
                 <h2 className="text-sm font-medium text-black">
-                  1212 1343 44343 55554
+                  {userDetails.account_number || "N/A"}
                 </h2>
               </div>
-
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">Full Name</h4>
-                <h2 className="text-sm font-medium text-black">Sarfo Sakyi</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {userDetails.full_name || "N/A"}
+                </h2>
               </div>
-
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">Card No.</h4>
-                <h2 className="text-sm font-medium text-black">GH - 1213223</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {userDetails.card_number || "N/A"}
+                </h2>
               </div>
             </div>
 
@@ -168,84 +167,140 @@ function PendingLoanDetails() {
                 <h4 className="text-sm font-normal text-gray-600">
                   Amount Requested
                 </h4>
-                <h2 className="text-sm font-medium text-black">Ghc 2130</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {userDetails.loan_amount || "N/A"}
+                </h2>
               </div>
-
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">
                   Amount Approved
                 </h4>
-                <h2 className="text-sm font-medium text-black">Null</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {userDetails.amount_approved || "N/A"}
+                </h2>
               </div>
-
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">
                   Date Requested
                 </h4>
                 <h2 className="text-sm font-medium text-black">
-                  12th May, 2024
+                  {userDetails.date_requested || "N/A"}
                 </h2>
               </div>
-
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">
                   Date Approved
                 </h4>
-                <h2 className="text-sm font-medium text-black">Null</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {userDetails.date_approved || "N/A"}
+                </h2>
               </div>
             </div>
 
             <div className="w-full">
               <div>
                 <h4 className="text-sm font-normal text-gray-600">Status</h4>
-                <h2 className="text-sm font-medium text-black">Pending Loan</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {userDetails.status || "N/A"}
+                </h2>
               </div>
-
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">
                   Amount Paid
                 </h4>
-                <h2 className="text-sm font-medium text-black">0</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {userDetails.amount_paid || "N/A"}
+                </h2>
               </div>
-
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">
                   Amount Owed
                 </h4>
-                <h2 className="text-sm font-medium text-black">Null</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {userDetails.amount_owed || "N/A"}
+                </h2>
               </div>
-
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">
                   Last Payment Date
                 </h4>
-                <h2 className="text-sm font-medium text-black">null</h2>
+                <h2 className="text-sm font-medium text-black">
+                  {userDetails.last_payment_date || "N/A"}
+                </h2>
               </div>
             </div>
           </div>
         </div>
 
         <div className="w-full flex justify-start gap-4 mt-32">
-          <div>
-            <button className="px-6 py-2 font-semibold text-white rounded-md text-sm my-2 bg-blue-600">
-              Approved
-            </button>
-          </div>
+          <button
+            className="px-6 py-2 font-semibold text-white rounded-md text-sm my-2 bg-blue-600"
+            onClick={openPrompt}
+          >
+            Approve
+          </button>
+          <button className="px-6 py-2 font-semibold text-black rounded-md text-sm my-2 border-black border-2">
+            Decline
+          </button>
+        </div>
+      </div>
 
-          <div>
-            <button className="px-6 py-2 font-semibold text-white rounded-md text-sm my-2 bg-black">
-              Suggest Amount
-            </button>
-          </div>
-          <div>
-            <button className="px-6 py-2 font-semibold text-black rounded-md text-sm my-2 border-black border-2">
-              Decline
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="User Details Modal"
+      >
+        {buttonPress === "userinfo" ? (
+          <UserDetailModal closeModal={closeModal} userDetails={userDetails} />
+        ) : buttonPress === "transaction" ? (
+          <TransactionHistory
+            closeModal={closeModal}
+            accountNumber={userDetails.account_anumber}
+          />
+        ) : (
+          <>
+            <h4 className="text-sm text-gray-600 font-semibold">
+              Are you sure you want to Approve this Loan?
+            </h4>
+            <div className="w-full flex justify-center gap-4 mt-8">
+              <button
+                className="px-6 py-2 font-semibold text-white rounded-md text-sm my-2 bg-blue-600"
+                onClick={handleApproveLoan}
+              >
+                Yes
+              </button>
+              <button
+                className="px-6 py-2 font-semibold text-black rounded-md text-sm my-2 border-black border-2"
+                onClick={closeModal}
+              >
+                No
+              </button>
+            </div>
+          </>
+        )}
+      </Modal>
+
+      <Modal
+        isOpen={modalIsOpenSuccess}
+        onRequestClose={closeSuccessModal}
+        style={customStyles}
+        contentLabel="Success Modal"
+      >
+        <div>
+          <h4 className="text-lg text-gray-600 font-semibold">Successful</h4>
+          <div className="w-full flex justify-center gap-4 mt-8">
+            <button
+              className="px-6 py-2 font-semibold text-white rounded-md text-sm my-2 bg-blue-600"
+              onClick={closeSuccessModal}
+            >
+              Ok
             </button>
           </div>
         </div>
-      </div>
+      </Modal>
     </div>
   );
-}
+};
 
 export default PendingLoanDetails;

@@ -13,9 +13,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { UserAuth } from "../contextApi/UserContext";
+import Skeleton from "../components/Skeleton";
 
 function ActiveLoans() {
   const navigate = useNavigate();
+  const { user, setUser, token, setToken } = UserAuth();
 
   const [pageNumber, setPageNumber] = useState(0);
   const [userses, setUseses] = useState([]);
@@ -25,6 +29,7 @@ function ActiveLoans() {
   const [studentsPerPage, setStudentsPerPage] = useState(10);
   const pagesVisited = pageNumber * studentsPerPage;
   const [checkedUsers, setCheckedUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const users = [
     {
@@ -100,7 +105,23 @@ function ActiveLoans() {
   ];
 
   useEffect(() => {
-    setUseses(users);
+    setIsLoading(true);
+    axios({
+      url: "/get_activeLoans",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        setUseses(res.data.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
   }, []);
 
   const sortName = () => {
@@ -153,7 +174,11 @@ function ActiveLoans() {
     setCheckedUsers([]);
   };
 
-  return (
+  return isLoading ? (
+    <div className="w-full h-full">
+      <Skeleton />
+    </div>
+  ) : (
     <div className="flex justify-between gap-4 mx-4">
       <Sidebar page="loan" />
       <div className="w-full ">
@@ -274,9 +299,9 @@ function ActiveLoans() {
                         ? "bg-gray-50 hover:cursor-pointer hover:opacity-60 "
                         : "hover:cursor-pointer hover:opacity-60 "
                     }
-                    onClick={() => {
-                      navigate("/loan/loandetails/" + index);
-                    }}
+                    // onClick={() => {
+                    //   navigate("/loan/pendingloandetails/" + user.id);
+                    // }}
                   >
                     <td className="px-4 py-4 whitespace-nowrap ">
                       <input
@@ -297,13 +322,10 @@ function ActiveLoans() {
                     </td>
                     <td className="px-2 py-4 whitespace-nowrap">{index + 1}</td>
 
-                    <td className="px-2 py-4 whitespace-nowrap">{user.name}</td>
-                    <td className="px-2 py-4 whitespace-nowrap">
-                      {user.accountNumber}
-                    </td>
+                    <td className="px-2 py-4 whitespace-nowrap">{user.id}</td>
 
                     <td className="px-2 py-4 whitespace-nowrap">
-                      {user.amountrequested}
+                      {user.loan_amount}
                     </td>
 
                     <td className="px-2 py-4 whitespace-nowrap">
@@ -314,7 +336,7 @@ function ActiveLoans() {
                       <button
                         className="py-[2px] text-xs px-4 bg-black text-white rounded-lg"
                         onClick={() => {
-                          navigate("");
+                          navigate("/loan/loandetails/" + user.id);
                         }}
                       >
                         View

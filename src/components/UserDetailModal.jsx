@@ -5,16 +5,18 @@ import axios from "axios";
 import { UserAuth } from "../contextApi/UserContext";
 import { useParams } from "react-router-dom";
 
-function UserDetailModal({ closeModal }) {
+function UserDetailModal({ closeModal, accountNumber }) {
   const handle = useParams();
   const [customerDetails, setCustomerDetails] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const { user, setUser, token, setToken } = UserAuth();
 
+  console.log({ accountNumber }, "hello");
+
   useEffect(() => {
     setIsLoading(true);
     axios({
-      url: "/get_customer/" + handle.id,
+      url: "/get_customer/" + accountNumber,
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +33,9 @@ function UserDetailModal({ closeModal }) {
         setIsLoading(false);
       });
   }, []);
-  return (
+  return isLoading ? (
+    <div>Hello</div>
+  ) : (
     <div>
       <div className="flex justify-between items-center border-b-[1px] py-2 border-b-gray-400 px-4">
         <div className="text-xl font-medium">User Details</div>
