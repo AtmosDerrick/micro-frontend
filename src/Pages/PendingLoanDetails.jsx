@@ -15,6 +15,8 @@ const PendingLoanDetails = () => {
   const { user, token } = UserAuth();
   const { id } = useParams();
 
+  console.log(id, "use params");
+
   const [userDetails, setUserDetails] = useState({});
   const [buttonPress, setButtonPress] = useState(null);
   const [approveResponse, setApproveResponse] = useState();
@@ -137,7 +139,7 @@ const PendingLoanDetails = () => {
                   Transaction ID
                 </h4>
                 <h2 className="text-sm font-medium text-black">
-                  {userDetails.transid || "N/A"}
+                  {userDetails.transaction_id || "N/A"}
                 </h2>
               </div>
               <div className="mt-6">
@@ -145,13 +147,13 @@ const PendingLoanDetails = () => {
                   Account Number
                 </h4>
                 <h2 className="text-sm font-medium text-black">
-                  {userDetails.account_number || "N/A"}
+                  {userDetails.account_anumber || "N/A"}
                 </h2>
               </div>
               <div className="mt-6">
                 <h4 className="text-sm font-normal text-gray-600">Full Name</h4>
                 <h2 className="text-sm font-medium text-black">
-                  {userDetails.full_name || "N/A"}
+                  {userDetails.user_name || "N/A"}
                 </h2>
               </div>
               <div className="mt-6">
@@ -176,7 +178,7 @@ const PendingLoanDetails = () => {
                   Amount Approved
                 </h4>
                 <h2 className="text-sm font-medium text-black">
-                  {userDetails.amount_approved || "N/A"}
+                  {userDetails.amount_paid || "N/A"}
                 </h2>
               </div>
               <div className="mt-6">
