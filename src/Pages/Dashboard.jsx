@@ -86,42 +86,7 @@ function Dashboard() {
             <h2 className="text-2xl font-bold mt-4">2,000</h2>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-2 mt-8">
-          <div className="w-full  h-[20rem] p-4 rounded-md">
-            <h3 className="text-base font-medium text-gray-600">
-              Users Overtime
-            </h3>
 
-            <div className="mt-[-1rem]">
-              <LineChart
-                width={800}
-                height={300}
-                series={[
-                  { data: pData, label: "Users OverTime", id: "pvId" },
-                  { data: uData, label: "Loan Requests", id: "uvId" },
-                ]}
-                xAxis={[{ scaleType: "point", data: xLabels }]}
-                sx={{
-                  ".MuiLineElement-root, .MuiMarkElement-root": {
-                    strokeWidth: 1,
-                  },
-                  ".MuiLineElement-series-pvId": {
-                    strokeDasharray: "5 5",
-                  },
-                  ".MuiLineElement-series-uvId": {
-                    strokeDasharray: "3 4 5 2",
-                  },
-                  ".MuiMarkElement-root:not(.MuiMarkElement-highlighted)": {
-                    fill: "#fff",
-                  },
-                  "& .MuiMarkElement-highlighted": {
-                    stroke: "none",
-                  },
-                }}
-              />
-            </div>
-          </div>
-        </div>
         <div className="mt-6">
           <h3 className="text-lg font-semibold py-4">Latest Transactions</h3>
           <div>

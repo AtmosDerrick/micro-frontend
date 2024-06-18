@@ -3,9 +3,9 @@ import { Navigate, Outlet } from "react-router-dom";
 import { UserAuth } from "../contextApi/UserContext";
 
 const Layout = ({ component: RouteComponent, ...rest }) => {
-  const { user } = UserAuth();
+  const { token } = UserAuth();
 
-  return <div>{!!user ? <Outlet /> : <Navigate to={"/"} />}</div>;
+  return <div>{!!token ? <Outlet /> : <Navigate to={"/"} />}</div>;
 };
 
 export default Layout;

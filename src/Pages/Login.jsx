@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import loading from "../assets/images/loading1.gif";
 import { UserAuth } from "../contextApi/UserContext";
+import logo from "../assets/images/ALPHAMAGAlogo.png";
 
 function Login() {
   const [email, setemail] = useState("");
@@ -66,14 +67,14 @@ function Login() {
         </div>
       )}
       <div className="w-full mx-auto para ">
-        <div className="w-2/4 mx-auto  rounded-2xl   py-8 ">
+        <div className="w-2/4 mx-auto  rounded-2xl  border-black border-[2px]  py-12 ">
           <div>
+            <div className="w-full flex justify-center item-center">
+              <img src={logo} alt="Alpha Maga Logo" />
+            </div>
             <h2 className="text-center text-xl font-semibold font-sans">
-              Micro Finance Dashboard
+              Alpha Mega Dashboard
             </h2>
-            <h5 className="text-center text-base text-primary font-semibold">
-              Login
-            </h5>
           </div>
 
           {error && (
@@ -89,6 +90,7 @@ function Login() {
               <input
                 type="text"
                 value={email}
+                placeholder="Email"
                 onChange={(e) => setemail(e.target.value)}
                 className="w-full border-[2px] border-gray-800 rounded-xl h-12 p-2  shadow-sm"
               />
@@ -100,6 +102,7 @@ function Login() {
               <input
                 type="password"
                 value={password}
+                placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full border-[2px] border-gray-800 rounded-xl h-12 p-2  shadow-sm"
               />

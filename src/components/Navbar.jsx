@@ -18,7 +18,7 @@ function Navbar() {
   const [isActive, setIsActive] = useState(false);
   return (
     <div>
-      <div className="h-[10vh] bg-white  flex justify-between items-center">
+      <div className="h-[5vh]  bg-white  flex justify-between items-center">
         <div>Welcome Mr. Austine</div>
 
         <div className="flex justify-center items-center gap-x-8">

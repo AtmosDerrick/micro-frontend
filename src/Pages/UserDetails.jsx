@@ -98,15 +98,7 @@ function UserDetails() {
 
         <div>
           <div className="flex justify-between">
-            <div className="w-full">
-              {" "}
-              <div className="w-32 h-32 mt-8 ">
-                <img
-                  src="https://i.pinimg.com/564x/17/f9/5a/17f95a7cd3091e1d5507588f462f2b38.jpg"
-                  className="w-32 h-32 rounded-full"
-                />
-              </div>
-            </div>
+            <div className="w-full"> </div>
 
             <div className="w-full flex justify-end pt-4 gap-4">
               <div>

@@ -28,11 +28,12 @@ import {
   faUsers,
   faWallet,
 } from "@fortawesome/free-solid-svg-icons";
+import logo from "../assets/images/ALPHAMAGAlogo.png";
 
 function Sidebar(page) {
   const [openWide, setOpenWide] = useState(false);
   const [isActive, setIsActive] = useState("");
-  const [loanMenuActive, setLoanMenuActive] = useState(true);
+  const [loanMenuActive, setLoanMenuActive] = useState(false);
 
   const classes = {
     container:
@@ -63,7 +64,7 @@ function Sidebar(page) {
                 : "text-sm font-bold text-black  hidden"
             }
           >
-            Admin
+            <img src={logo} className="w-24" />
           </h2>
           <button
             onClick={() => {

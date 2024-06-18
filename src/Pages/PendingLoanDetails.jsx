@@ -6,14 +6,16 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { UserAuth } from "../contextApi/UserContext";
 import { useParams } from "react-router-dom";
-import Modal from "react-modal";
 import TransactionHistory from "../components/TransactionHistory";
 import UserDetailModal from "../components/UserDetailModal";
+import { useNavigate } from "react-router-dom";
+import { Modal } from "antd";
 
 const PendingLoanDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { user, token } = UserAuth();
   const { id } = useParams();
+  const navigation = useNavigate();
 
   console.log(id, "use params");
 
@@ -66,26 +68,38 @@ const PendingLoanDetails = () => {
   const closeSuccessModal = () => setIsOpenSuccess(false);
 
   const handleApproveLoan = () => {
-    axios
-      .put(
-        `/approve_loan/${id}`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setApproveResponse(res.data.data);
-        openSuccessModal();
-      })
-      .catch((err) => {
-        console.error(err);
-        closeModal();
-      });
-  };
+    Modal.warning({
+      title: "Are sure you want to approve this loan?",
+      okText: 'Yes',
+      centered: true,
+      closable: true,
+      onOk: ()=>{
+        console.log("working")
+      }
+    })
+  //   axios
+  //     .put(
+  //       `/approve_loan/${id}`,
+  //       {},
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       setApproveResponse(res.data.data);
+  //       closeModal();
+  //       navigation("/loan/pendingloandetails");
+  //       openSuccessModal();
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //       closeModal();
+  //     });
+  // };
+}
 
   const openPrompt = () => {
     setButtonPress(null);
