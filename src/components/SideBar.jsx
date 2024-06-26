@@ -37,9 +37,9 @@ function Sidebar(page) {
 
   const classes = {
     container:
-      "flex justify-start gap-x-[1px] mb-4 hover:bg-gray-200 py-2 px-2 rounded-md",
+      "flex justify-start gap-x-[1px] mb-4 hover:bg-orange-200 py-2 px-2 rounded-md",
     activeMenu:
-      "flex justify-start gap-x-[1px] mb-4  bg-gray-100 py-2 px-4 rounded-lg",
+      "flex justify-start gap-x-[1px] mb-4  bg-orange-100 py-2 px-4 rounded-lg",
     iconsContainer: "w-1/6",
     icons: "text-lg text-black",
     activeIcon: "text-black",

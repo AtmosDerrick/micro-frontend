@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/SideBar";
 import Navbar from "../components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faEdit } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { UserAuth } from "../contextApi/UserContext";
 
 function StaffDetails() {
+  const { user, setUser, token, setToken } = UserAuth();
+
+  const [all_staff, setAll_Staff] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    setIsLoading(true);
+    axios({
+      url: "/get_completedLoans",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        setAll_Staff(res.data.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+  }, []);
   return (
     <div className="flex justify-between gap-4">
       <Sidebar page="customers" />
@@ -25,7 +50,6 @@ function StaffDetails() {
         <div>
           <div className="flex justify-between">
             <div className="w-full">
-              {" "}
               <div className="w-32 h-32 mt-8 ">
                 <img
                   src="https://i.pinimg.com/564x/17/f9/5a/17f95a7cd3091e1d5507588f462f2b38.jpg"

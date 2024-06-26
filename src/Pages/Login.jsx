@@ -67,7 +67,7 @@ function Login() {
         </div>
       )}
       <div className="w-full mx-auto para ">
-        <div className="w-2/4 mx-auto  rounded-2xl  border-black border-[2px]  py-12 ">
+        <div className="w-2/4 mx-auto  rounded-2xl  border-orange-500 border-[2px]  py-12 ">
           <div>
             <div className="w-full flex justify-center item-center">
               <img src={logo} alt="Alpha Maga Logo" />
@@ -114,7 +114,7 @@ function Login() {
 
             <button
               type="submit"
-              className=" w-full mt-8 py-3 rounded-2xl text-white bg-gray-900"
+              className=" w-full mt-8 py-3 rounded-2xl text-white bg-orange-500"
             >
               Sign In
             </button>

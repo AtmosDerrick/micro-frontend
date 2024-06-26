@@ -17,7 +17,7 @@ function Navbar() {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   return (
-    <div>
+    <div className="border-b-2 border-orange-200 py-4 mb-4">
       <div className="h-[5vh]  bg-white  flex justify-between items-center">
         <div>Welcome Mr. Austine</div>
 
@@ -54,11 +54,11 @@ function Navbar() {
       <div
         className={
           isActive
-            ? "absolute right-4  backdrop-blur-md  mt-[0px]  rounded-md  py-2 w-1/6 text-left border-[1px] shadow-md border-gray-300 bg-white transition-all duration-500"
+            ? "absolute right-4  backdrop-blur-md  mt-[10px]  rounded-md  py-2 w-1/6 text-left border-[1px] shadow-md border-gray-300 bg-white transition-all duration-500"
             : "absolute right-4  backdrop-blur-md mt-[-1000px]  rounded-md  py-2 w-1/6 text-left border-[1px] shadow-md border-gray-300 bg-white transition-all duration-500"
         }
       >
-        <div className="mb-4 font-medium text-black border-b-[1px] border-b-gray-300 py-1 px-4 text-sm">
+        <div className="mb-4 font-medium text-gray-700 border-b-gray-300 py-1 px-4 text-sm">
           <button
             onClick={() => {
               navigate("/staffprofile/" + 1);
@@ -69,7 +69,7 @@ function Navbar() {
           </button>
         </div>
 
-        <div className="mb-4 font-medium text-black border-b-[1px] border-b-gray-300 py-1 px-4 text-sm">
+        <div className="mb-4 font-medium text-gray-700  border-b-gray-300 py-1 px-4 text-sm">
           <button>
             <FontAwesomeIcon icon={faList} className="mr-2" />
             My Activities

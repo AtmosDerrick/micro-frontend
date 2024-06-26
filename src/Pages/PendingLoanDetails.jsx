@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import TransactionHistory from "../components/TransactionHistory";
 import UserDetailModal from "../components/UserDetailModal";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "antd";
+import { Button, Modal, Space } from "antd";
 
 const PendingLoanDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -70,36 +70,40 @@ const PendingLoanDetails = () => {
   const handleApproveLoan = () => {
     Modal.warning({
       title: "Are sure you want to approve this loan?",
-      okText: 'Yes',
+      okText: "Yes",
       centered: true,
       closable: true,
-      onOk: ()=>{
-        console.log("working")
-      }
-    })
-  //   axios
-  //     .put(
-  //       `/approve_loan/${id}`,
-  //       {},
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       setApproveResponse(res.data.data);
-  //       closeModal();
-  //       navigation("/loan/pendingloandetails");
-  //       openSuccessModal();
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //       closeModal();
-  //     });
-  // };
-}
+      onOk: () => {
+        console.log("working");
+        axios
+          .put(
+            `/approveloan/${id}`,
+            {},
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            setApproveResponse(res.data.data);
+            Modal.success({
+              content: "Loan Approval Successful",
+            });
+            navigation("/loan/pendingloan/");
+          })
+          .catch((err) => {
+            console.error(err);
+            Modal.error({
+              title: "Something went wrong",
+              content: "Not able to approve loan",
+            });
+            closeModal();
+          });
+      },
+    });
+  };
 
   const openPrompt = () => {
     setButtonPress(null);
@@ -251,7 +255,7 @@ const PendingLoanDetails = () => {
         <div className="w-full flex justify-start gap-4 mt-32">
           <button
             className="px-6 py-2 font-semibold text-white rounded-md text-sm my-2 bg-blue-600"
-            onClick={openPrompt}
+            onClick={handleApproveLoan}
           >
             Approve
           </button>

@@ -13,9 +13,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ReactPaginate from "react-paginate";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { UserAuth } from "../contextApi/UserContext";
 
 function CompletedLoans() {
   const navigate = useNavigate();
+  const { user, setUser, token, setToken } = UserAuth();
 
   const [pageNumber, setPageNumber] = useState(0);
   const [userses, setUseses] = useState([]);
@@ -25,6 +28,28 @@ function CompletedLoans() {
   const [studentsPerPage, setStudentsPerPage] = useState(10);
   const pagesVisited = pageNumber * studentsPerPage;
   const [checkedUsers, setCheckedUsers] = useState([]);
+  const [completedLoans, setCompletedLoans] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios({
+      url: "/get_completedLoans",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        setCompletedLoans(res.data.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+  }, []);
 
   const users = [
     {
@@ -264,8 +289,8 @@ function CompletedLoans() {
               </tr>
             </thead>
             <tbody>
-              {userses
-                .slice(pagesVisited, pagesVisited + studentsPerPage)
+              {completedLoans
+                ?.slice(pagesVisited, pagesVisited + studentsPerPage)
                 .map((user, index) => (
                   <tr
                     key={index}
