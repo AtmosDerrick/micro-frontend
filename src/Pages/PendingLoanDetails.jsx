@@ -77,7 +77,7 @@ const PendingLoanDetails = () => {
         console.log("working");
         axios
           .put(
-            `/approveloan/${id}`,
+            `/approve_loan/${id}`,
             {},
             {
               headers: {
