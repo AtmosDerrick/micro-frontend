@@ -51,8 +51,8 @@ function Sidebar(page) {
     <div
       className={
         !openWide
-          ? "w-1/4 rounded-md  h-screen transition-all duration-500 "
-          : "w-1/7 rounded-md  h-screen transition-all duration-500 px-8"
+          ? "w-1/4   h-screen transition-all duration-500  border-r-2 border-orange-200"
+          : "w-1/7 rounded-md  h-screen transition-all duration-500 px-8 "
       }
     >
       <div className={"w-full px-2"}>
@@ -332,7 +332,12 @@ function Sidebar(page) {
             </div>
           </Link>
 
-          <Link to="/dashboard" className={classes.container}>
+          <Link
+            to="/account/management"
+            className={
+              page.page === "accountM" ? classes.activeMenu : classes.container
+            }
+          >
             <div className={classes.iconsContainer}>
               <FontAwesomeIcon
                 icon={faFileInvoiceDollar}
@@ -354,14 +359,18 @@ function Sidebar(page) {
           <Link
             to="/loansettings"
             className={
-              page.page === "parents" ? classes.activeMenu : classes.container
+              page.page === "loansettings"
+                ? classes.activeMenu
+                : classes.container
             }
           >
             <div className={classes.iconsContainer}>
               <FontAwesomeIcon
                 icon={faWallet}
                 className={
-                  page.page === "parents" ? classes.activeIcon : classes.icons
+                  page.page === "loansettings"
+                    ? classes.activeIcon
+                    : classes.icons
                 }
               />
             </div>

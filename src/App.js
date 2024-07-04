@@ -20,6 +20,7 @@ import { UserContextProvider } from "./contextApi/UserContext";
 import StaffDetails from "./Pages/StaffDetails";
 import StaffProfile from "./Pages/StaffProfile";
 import LoanSettings from "./Pages/LoanSettings";
+import UserManagement from "./Pages/AccountManagment";
 
 function App() {
   axios.defaults.baseURL = "https://alphamega.gitplus.app/api/";
@@ -53,6 +54,8 @@ function App() {
             <Route path="/loansettings" element={<LoanSettings />} />
 
             <Route path="/account" element={<Account />} />
+            <Route path="/account/management" element={<UserManagement />} />
+
             <Route path="account/staffDetails/:id" element={<StaffDetails />} />
             <Route path="/staffprofile/:id" element={<StaffProfile />} />
           </Route>

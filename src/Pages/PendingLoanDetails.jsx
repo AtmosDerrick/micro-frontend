@@ -74,7 +74,6 @@ const PendingLoanDetails = () => {
       centered: true,
       closable: true,
       onOk: () => {
-        console.log("working");
         axios
           .put(
             `/approve_loan/${id}`,

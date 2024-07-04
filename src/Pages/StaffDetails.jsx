@@ -14,7 +14,7 @@ function StaffDetails() {
   useEffect(() => {
     setIsLoading(true);
     axios({
-      url: "/get_completedLoans",
+      url: "/get_staff/",
       method: "GET",
       headers: {
         "Content-Type": "application/json",

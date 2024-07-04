@@ -14,9 +14,12 @@ import {
 import ReactPaginate from "react-paginate";
 import { useNavigate, Link } from "react-router-dom";
 import AddAdminModel from "../components/AddAdminModel";
-
+import { Button, Modal, Space } from "antd";
+import { UserAuth } from "../contextApi/UserContext";
+import axios from "axios";
 function Account() {
   const navigate = useNavigate();
+  const { user, token } = UserAuth();
 
   const [pageNumber, setPageNumber] = useState(0);
   const [userses, setUseses] = useState([]);
@@ -25,6 +28,27 @@ function Account() {
   const [studentsPerPage, setStudentsPerPage] = useState(10);
   const pagesVisited = pageNumber * studentsPerPage;
   const [checkedUsers, setCheckedUsers] = useState([]);
+  const [all_Staff, setAll_staff] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(`/api/get_staff/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setAll_staff(res.data.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+  }, [token]);
 
   let users = [
     {
@@ -212,38 +236,43 @@ function Account() {
               </tr>
             </thead>
             <tbody>
-              {userses
-                .slice(pagesVisited, pagesVisited + studentsPerPage)
-                .map((user, index) => (
-                  <tr
-                    key={index}
-                    className={
-                      index % 2 === 0
-                        ? "bg-gray-50 hover:cursor-pointer hover:opacity-60 "
-                        : "hover:cursor-pointer hover:opacity-60 "
-                    }
-                  >
-                    <td className="px-2 py-4 whitespace-nowrap">{user.name}</td>
-                    <td className="px-2 py-4 whitespace-nowrap">
-                      {user.email}
-                    </td>
-                    <td className="px-2 py-4 whitespace-nowrap">
-                      {user.location}
-                    </td>
+              {all_Staff &&
+                all_Staff
+                  .slice(pagesVisited, pagesVisited + studentsPerPage)
+                  .map((user, index) => (
+                    <tr
+                      key={index}
+                      className={
+                        index % 2 === 0
+                          ? "bg-gray-50 hover:cursor-pointer hover:opacity-60 "
+                          : "hover:cursor-pointer hover:opacity-60 "
+                      }
+                    >
+                      <td className="px-2 py-4 whitespace-nowrap">
+                        {user.name}
+                      </td>
+                      <td className="px-2 py-4 whitespace-nowrap">
+                        {user.email}
+                      </td>
+                      <td className="px-2 py-4 whitespace-nowrap">
+                        {user.location}
+                      </td>
 
-                    <td className="px-2 py-4 whitespace-nowrap">{user.role}</td>
-                    <td className="px-2 py-4 whitespace-nowrap">
-                      <button
-                        className="text-orange-500"
-                        onClick={() => {
-                          navigate("staffdetails/" + user.id);
-                        }}
-                      >
-                        View
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                      <td className="px-2 py-4 whitespace-nowrap">
+                        {user.role}
+                      </td>
+                      <td className="px-2 py-4 whitespace-nowrap">
+                        <button
+                          className="text-orange-500"
+                          onClick={() => {
+                            navigate("staffdetails/" + user.id);
+                          }}
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
             </tbody>
           </table>
 
